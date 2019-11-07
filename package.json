@@ -1,0 +1,27 @@
+{
+  "name": "scheme-interpreter-module",
+  "version": "1.0.0",
+  "description": "Scheme online interpreter",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mishotek/scheme-interpreter-module.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mishotek/scheme-interpreter-module/issues"
+  },
+  "homepage": "https://github.com/mishotek/scheme-interpreter-module#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.22",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.7.2"
+  }
+}

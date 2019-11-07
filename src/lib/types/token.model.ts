@@ -1,4 +1,5 @@
 export enum TokenType {
+    Null = 'Null',
     Parenthesis = 'Parenthesis',
     SquareBrackets = 'SquareBrackets',
     Number = 'Number',
@@ -6,7 +7,22 @@ export enum TokenType {
     String = 'String'
 }
 
-export interface Token {
-    type: TokenType,
-    value: string
+export class Token {
+
+    public static NullToken = new Token(TokenType.Null, '');
+
+    constructor(public type: TokenType, public value: string) {}
+
+}
+
+export class TokenMetaData {
+    constructor(public token: Token, public cursor: number) {}
+}
+
+export type TokenizerFn = (input: string, cursor: number) => TokenMetaData;
+export type PredicateFn = (char: string) => boolean;
+
+export interface TokenizerConfig {
+    predicateFn: PredicateFn,
+    tokenizerFn: TokenizerFn
 }

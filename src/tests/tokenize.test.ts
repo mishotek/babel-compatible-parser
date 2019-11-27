@@ -248,3 +248,8 @@ test('Should correctly tokenize multiple strings', () => {
 
     expect(tokenize(input)).toEqual(result);
 });
+
+test('Should not parse with invalid input', () => {
+    const input = '12abc';
+    expect(() => tokenize(input)).toThrowError(SyntaxError);
+});

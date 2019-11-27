@@ -1,6 +1,7 @@
 import {Token, TokenizerFn, TokenMetaData, TokenType} from "../types/token.model";
-import {isLetter, isNumber, isQuote} from "../helpers/identify";
+import {isLetter, isNumber, isQuote, isWhitespace} from "../helpers/identify";
 import * as R from "ramda";
+import {cutTillWhiteSpace} from "../helpers/split-string";
 
 export const whitespaceTokenizer: TokenizerFn = (input, cursor) => {
   return new TokenMetaData(Token.NullToken, cursor + 1);
@@ -21,6 +22,11 @@ export const numberTokenizer: TokenizerFn = (input, cursor) => {
 
   while (isNumber(input[++cursor])) {
     number += input[cursor];
+  }
+
+  if (input.length !== cursor && isLetter(input[cursor])) {
+    const invalidToken = number + cutTillWhiteSpace(input, cursor);
+    throw new SyntaxError(`Could't parse a number ${invalidToken}`);
   }
 
   return new TokenMetaData(new Token(TokenType.Number, number), cursor);

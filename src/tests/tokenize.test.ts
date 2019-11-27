@@ -1,4 +1,4 @@
-import {tokenize} from "../lib/tokenizer";
+import {tokenize} from "../lib/tokenizer/tokenizer";
 import {Token, TokenType} from "../lib/types/token.model";
 
 test('Should return an array', () => {

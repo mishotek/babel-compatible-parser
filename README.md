@@ -58,7 +58,7 @@ Now we can rewrite IsEven
 ```
 const IsEven = number => Not < (number -> IsOdd)
 
-// Or in  point free style
+// Or in point free style
 
 const IsEven = Negate < IsOdd
 ```

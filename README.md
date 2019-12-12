@@ -32,12 +32,12 @@ Functions should be named in a camel case and start with uppercase letter
 
 ### Function calls
 Combining in line
-```
+```javascript
 myVariable -> MyFunction -> AnotherFunction -> (3 -> Divide)
 ```
 
 Chaining functions on arrays
-```
+```javascript
 myArray
   -> (MappingFn -> Map)
   -> (FilteringFn -> FilterIn)
@@ -47,28 +47,34 @@ myArray
 ```
 
 Declearing function that uses other function
-```
+```javascript
 const IsEven = number => number -> IsOdd -> Not
 ```
 
 Piping and combiling functions
-```
+```javascript
 const Combined = ToUpperCase < Trim < RemoveSpaces
 const Piped = RemoveSpaces > Trim > ToUpperCase
 ```
 
 So now this are identical:
-```
+```javascript
 string -> RemoveSpaces -> Trim -> ToUpperCase
 string -> (RemoveSpaces > Trim > ToUpperCase)
 string -> (ToUpperCase < Trim < RemoveSpaces)
 ```
 
 Now we can rewrite IsEven
-```
+```javascript
 const IsEven = number => Not < (number -> IsOdd)
 
 // Or in point free style
 
 const IsEven = Negate < IsOdd
+```
+
+### Comparing to more usual syntax
+```javascript
+const PrintMoney = amount => amount, '$' -> Concat -> Print
+const printMoney = amount => print(concat(amount, '$'))
 ```

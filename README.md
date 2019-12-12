@@ -19,3 +19,8 @@ Variables should be named in a camel case and start with lowercase letter
 
 #### Function naming
 Functions should be named in a camel case and start with uppercase letter
+
+### Function calls
+```
+myVariable > MyFunction > AnotherFunction > (3 >Divide)
+```

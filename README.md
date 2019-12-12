@@ -3,6 +3,16 @@
 
 Some ideas to consider:
 
+### Operators
+  * =
+  * (
+  * )
+  * =>
+  * ->
+  * \>
+  * <
+
+
 ### Variable declaration
 ```javascript
 const myVariable = 12

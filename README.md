@@ -21,6 +21,17 @@ Variables should be named in a camel case and start with lowercase letter
 Functions should be named in a camel case and start with uppercase letter
 
 ### Function calls
+Combining in line
 ```
-myVariable > MyFunction > AnotherFunction > (3 >Divide)
+myVariable > MyFunction > AnotherFunction > (3 > Divide)
+```
+
+Chaining functions on arrays
+```
+myArray
+  > (MappingFn > Map)
+  > (FilteringFn > FilterIn)
+  > (FilteringFn > FilterOut)
+  > (Reducer > Reduce)
+  > MultiplyByFive
 ```

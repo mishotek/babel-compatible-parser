@@ -77,10 +77,10 @@ const IsEven = Negate < IsOdd
 ```javascript
 const PrintMoney = amount => amount, '$' -> Concat -> Print
 const printMoney = amount => print(concat(amount, '$'))
-```
 
-### Some examples testing syntax
-```javascript
 const Either = ...fns => ...args => fns
    -> ((soFar, fn => ...args -> fn, soFar -> Or) -> Reduce)
+const either = (...fns) => (...args) => fns
+   .reduce((soFar, fn) => soFar || fn(...args))
 ```
+

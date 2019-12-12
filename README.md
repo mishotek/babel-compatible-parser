@@ -78,3 +78,9 @@ const IsEven = Negate < IsOdd
 const PrintMoney = amount => amount, '$' -> Concat -> Print
 const printMoney = amount => print(concat(amount, '$'))
 ```
+
+### Some examples testing syntax
+```javascript
+const Either = ...fns => ...args => fns
+   -> ((soFar, fn => ...args -> fn, soFar -> Or) -> Reduce)
+```

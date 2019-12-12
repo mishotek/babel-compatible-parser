@@ -57,7 +57,7 @@ const Combined = ToUpperCase < Trim < RemoveSpaces
 const Piped = RemoveSpaces > Trim > ToUpperCase
 ```
 
-So now this are identical:
+So now these are identical:
 ```javascript
 string -> RemoveSpaces -> Trim -> ToUpperCase
 string -> (RemoveSpaces > Trim > ToUpperCase)

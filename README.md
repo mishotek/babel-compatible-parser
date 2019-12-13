@@ -66,7 +66,7 @@ string -> (ToUpperCase < Trim < RemoveSpaces)
 
 Now we can rewrite IsEven
 ```javascript
-const IsEven = number => Not < (number -> IsOdd)
+const IsEven = number => number -> (Not < IsOdd)
 
 // Or in point free style
 

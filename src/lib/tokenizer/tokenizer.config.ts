@@ -1,8 +1,17 @@
 import {TokenizerConfig} from "../types/token.model";
-import {isLetter, isNumber, isParenthesis, isQuote, isSquareBracket, isWhitespace} from "../helpers/identify";
 import {
+  isCurlyBrackets,
+  isLetter,
+  isNumber, isOperator,
+  isParenthesis,
+  isQuote,
+  isSquareBracket,
+  isWhitespace
+} from "../helpers/identify";
+import {
+  curlyBracketsTokenizer,
   letterTokenizer,
-  numberTokenizer,
+  numberTokenizer, operatorTokenizer,
   parenthesisTokenizer,
   squareBracketsTokenizer,
   stringTokenizer, whitespaceTokenizer
@@ -20,6 +29,14 @@ export const tokenizerConfig: TokenizerConfig[] = [
   {
     predicateFn: isSquareBracket,
     tokenizerFn: squareBracketsTokenizer
+  },
+  {
+    predicateFn: isCurlyBrackets,
+    tokenizerFn: curlyBracketsTokenizer
+  },
+  {
+    predicateFn: isOperator,
+    tokenizerFn: operatorTokenizer
   },
   {
     predicateFn: isNumber,

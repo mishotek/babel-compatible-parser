@@ -37,6 +37,22 @@ test('Should handle square brackets', () => {
     expect(tokenize(input)).toEqual(result);
 });
 
+test('Should handle curly brackets', () => {
+    const input = '{}';
+    const result: Token[] = [
+        {
+            type: TokenType.CurlyBrackets,
+            value: '{'
+        },
+        {
+            type: TokenType.CurlyBrackets,
+            value: '}'
+        },
+    ];
+
+    expect(tokenize(input)).toEqual(result);
+});
+
 test('Should ignore whitespaces completely', () => {
    expect(tokenize('          ')).toEqual([]);
 });
@@ -249,7 +265,44 @@ test('Should correctly tokenize multiple strings', () => {
     expect(tokenize(input)).toEqual(result);
 });
 
-test('Should not parse with invalid input', () => {
-    const input = '12abc';
+test('Should correctly tokenize lambda function operator', () => {
+    const input = 'string => print(string)';
+    const result: Token[] = [
+        {
+            type: TokenType.Name,
+            value: 'string'
+        },
+        {
+            type: TokenType.Operator,
+            value: '=>'
+        },
+        {
+            type: TokenType.Name,
+            value: 'print'
+        },
+        {
+            type: TokenType.Parenthesis,
+            value: '('
+        },
+        {
+            type: TokenType.Name,
+            value: 'string'
+        },
+        {
+            type: TokenType.Parenthesis,
+            value: ')'
+        },
+    ];
+
+    expect(tokenize(input)).toEqual(result);
+});
+
+test('Should not parse invalid number', () => {
+    const input = '(fn 12abc 12 "YEY")';
+    expect(() => tokenize(input)).toThrowError(SyntaxError);
+});
+
+test('Should not parse invalid operator', () => {
+    const input = 'arg =?> myFn(arg)';
     expect(() => tokenize(input)).toThrowError(SyntaxError);
 });

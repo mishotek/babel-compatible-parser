@@ -2,6 +2,8 @@ export enum TokenType {
     Null = 'Null',
     Parenthesis = 'Parenthesis',
     SquareBrackets = 'SquareBrackets',
+    CurlyBrackets = 'CurlyBrackets',
+    Operator = 'Operator',
     Number = 'Number',
     Name = 'Name',
     String = 'String'

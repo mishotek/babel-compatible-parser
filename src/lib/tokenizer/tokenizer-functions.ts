@@ -1,5 +1,5 @@
 import {Token, TokenizerFn, TokenMetaData, TokenType} from "../types/token.model";
-import {isLetter, isNumber, isQuote, isWhitespace} from "../helpers/identify";
+import {isLetter, isNumber, isOperator, isQuote, isWhitespace} from "../helpers/identify";
 import * as R from "ramda";
 import {cutTillWhiteSpace} from "../helpers/split-string";
 
@@ -15,6 +15,11 @@ export const parenthesisTokenizer: TokenizerFn = (input, cursor) => {
 export const squareBracketsTokenizer: TokenizerFn = (input, cursor) => {
   const char = input[cursor];
   return new TokenMetaData(new Token(TokenType.SquareBrackets, char), cursor + 1);
+};
+
+export const curlyBracketsTokenizer: TokenizerFn = (input, cursor) => {
+  const char = input[cursor];
+  return new TokenMetaData(new Token(TokenType.CurlyBrackets, char), cursor + 1);
 };
 
 export const numberTokenizer: TokenizerFn = (input, cursor) => {
@@ -50,6 +55,20 @@ export const stringTokenizer: TokenizerFn = (input, cursor) => {
   }
 
   return new TokenMetaData(new Token(TokenType.String, str), cursor + 1);
+};
+
+export const operatorTokenizer: TokenizerFn = (input, cursor) => {
+  let operator = '';
+
+  while (cursor < input.length && !isWhitespace(input[cursor])) {
+    operator += input[cursor++];
+  }
+
+  if (!isOperator(operator)) {
+    throw new SyntaxError(`Unsupported operator: ${operator}`);
+  }
+
+  return new TokenMetaData(new Token(TokenType.Operator, operator), cursor);
 };
 
 export const defaultTokenizer: TokenizerFn = (input, cursor) => {

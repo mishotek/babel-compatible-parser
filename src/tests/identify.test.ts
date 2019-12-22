@@ -32,8 +32,8 @@ test('Should not identify a number character', () => {
   expect(isNumber('_')).toBe(false);
 });
 
-test('Should identify a plus operator', () => {
-  expect(isOperator('+')).toBe(true);
+test('Should identify a pipe operator', () => {
+  expect(isOperator('>')).toBe(true);
 });
 
 test('Should not identify a plus operator', () => {

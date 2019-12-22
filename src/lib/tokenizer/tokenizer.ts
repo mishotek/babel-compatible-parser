@@ -14,8 +14,7 @@ export function tokenize(input: string): Token[] {
         tokens.push(token);
     }
 
-    return tokens
-      .filter(token => token !== Token.NullToken);
+    return tokens.filter(token => token !== Token.NullToken);
 }
 
 const getTokenizerFn: (char: string) => TokenizerFn = char => {

@@ -34,7 +34,7 @@ export const numberTokenizer: TokenizerFn = (input, cursor) => {
     throw new SyntaxError(`Could't parse a number ${invalidToken}`);
   }
 
-  return new TokenMetaData(new Token(TokenType.Number, Number(number)), cursor);
+  return new TokenMetaData(new Token(TokenType.Number, number), cursor);
 };
 
 export const letterTokenizer: TokenizerFn = (input, cursor) => {

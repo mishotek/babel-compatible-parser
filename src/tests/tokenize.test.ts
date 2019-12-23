@@ -62,7 +62,7 @@ test('Should correctly tokenize single digit', () => {
     const result: Token[] = [
         {
             type: TokenType.Number,
-            value: 1
+            value: '1'
         },
     ];
 
@@ -78,11 +78,11 @@ test('Should correctly tokenize multiple single digits', () => {
         },
         {
             type: TokenType.Number,
-            value: 2
+            value: '2'
         },
         {
             type: TokenType.Number,
-            value: 6
+            value: '6'
         },
         {
             type: TokenType.Parenthesis,
@@ -134,7 +134,7 @@ test('Should correctly tokenize number', () => {
     const result: Token[] = [
         {
             type: TokenType.Number,
-            value: 69
+            value: '69'
         },
     ];
 
@@ -150,11 +150,11 @@ test('Should correctly tokenize multiple numbers', () => {
         },
         {
             type: TokenType.Number,
-            value: 69
+            value: '69'
         },
         {
             type: TokenType.Number,
-            value: 96
+            value: '96'
         },
         {
             type: TokenType.Parenthesis,
@@ -226,7 +226,7 @@ test('Should correctly tokenize string', () => {
 });
 
 test('Should correctly tokenize multiple strings', () => {
-    const input = '("123" "string" 123 YeY "co0l" "")';
+    const input = '("123" "string with space" 123 YeY "co0l" "")';
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
@@ -238,11 +238,11 @@ test('Should correctly tokenize multiple strings', () => {
         },
         {
             type: TokenType.String,
-            value: 'string'
+            value: 'string with space'
         },
         {
             type: TokenType.Number,
-            value: 123
+            value: '123'
         },
         {
             type: TokenType.Name,

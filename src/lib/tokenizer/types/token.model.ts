@@ -13,7 +13,7 @@ export class Token {
 
     public static NullToken = new Token(TokenType.Null, '');
 
-    constructor(public type: TokenType, public value: string | number) {}
+    constructor(public type: TokenType, public value: string) {}
 
 }
 

@@ -13,7 +13,7 @@ export function parse(tokens: Token[]): AST {
         ast.push(node);
         tokens = remainingTokens;
     }
-    
+
     return ast;
 }
 

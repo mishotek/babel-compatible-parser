@@ -1,4 +1,4 @@
-import {Token, TokenizerFn, TokenMetaData, TokenType} from "../types/token.model";
+import {Token, TokenizerFn, TokenMetaData, TokenType} from "./types/token.model";
 import {isLetter, isNumber, isOperator, isQuote, isWhitespace} from "../helpers/identify";
 import * as R from "ramda";
 import {cutTillWhiteSpace} from "../helpers/split-string";
@@ -34,7 +34,7 @@ export const numberTokenizer: TokenizerFn = (input, cursor) => {
     throw new SyntaxError(`Could't parse a number ${invalidToken}`);
   }
 
-  return new TokenMetaData(new Token(TokenType.Number, number), cursor);
+  return new TokenMetaData(new Token(TokenType.Number, Number(number)), cursor);
 };
 
 export const letterTokenizer: TokenizerFn = (input, cursor) => {

@@ -1,5 +1,5 @@
 import {tokenize} from "../lib/tokenizer/tokenizer";
-import {Token, TokenType} from "../lib/types/token.model";
+import {Token, TokenType} from "../lib/tokenizer/types/token.model";
 
 test('Should return an array', () => {
    expect(Array.isArray(tokenize(''))).toBe(true);
@@ -62,7 +62,7 @@ test('Should correctly tokenize single digit', () => {
     const result: Token[] = [
         {
             type: TokenType.Number,
-            value: '1'
+            value: 1
         },
     ];
 
@@ -78,11 +78,11 @@ test('Should correctly tokenize multiple single digits', () => {
         },
         {
             type: TokenType.Number,
-            value: '2'
+            value: 2
         },
         {
             type: TokenType.Number,
-            value: '6'
+            value: 6
         },
         {
             type: TokenType.Parenthesis,
@@ -134,7 +134,7 @@ test('Should correctly tokenize number', () => {
     const result: Token[] = [
         {
             type: TokenType.Number,
-            value: '69'
+            value: 69
         },
     ];
 
@@ -150,11 +150,11 @@ test('Should correctly tokenize multiple numbers', () => {
         },
         {
             type: TokenType.Number,
-            value: '69'
+            value: 69
         },
         {
             type: TokenType.Number,
-            value: '96'
+            value: 96
         },
         {
             type: TokenType.Parenthesis,
@@ -242,7 +242,7 @@ test('Should correctly tokenize multiple strings', () => {
         },
         {
             type: TokenType.Number,
-            value: '123'
+            value: 123
         },
         {
             type: TokenType.Name,
@@ -266,7 +266,9 @@ test('Should correctly tokenize multiple strings', () => {
 });
 
 test('Should correctly tokenize lambda function operator', () => {
-    const input = 'string => print(string)';
+    const input = `string => {
+                      print(string)
+                   }`;
     const result: Token[] = [
         {
             type: TokenType.Name,
@@ -275,6 +277,10 @@ test('Should correctly tokenize lambda function operator', () => {
         {
             type: TokenType.Operator,
             value: '=>'
+        },
+        {
+            type: TokenType.CurlyBrackets,
+            value: '{'
         },
         {
             type: TokenType.Name,
@@ -291,6 +297,10 @@ test('Should correctly tokenize lambda function operator', () => {
         {
             type: TokenType.Parenthesis,
             value: ')'
+        },
+        {
+            type: TokenType.CurlyBrackets,
+            value: '}'
         },
     ];
 

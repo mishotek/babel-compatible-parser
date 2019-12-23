@@ -1,4 +1,4 @@
-import { Token, TokenizerConfig, TokenizerFn } from "../types/token.model";
+import { Token, TokenizerConfig, TokenizerFn } from "./types/token.model";
 import {tokenizerConfig} from "./tokenizer.config";
 import {defaultTokenizer} from "./tokenizer-functions";
 

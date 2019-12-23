@@ -1,4 +1,4 @@
-import {TokenizerConfig} from "../types/token.model";
+import {TokenizerConfig} from "./types/token.model";
 import {
   isCurlyBrackets,
   isLetter,

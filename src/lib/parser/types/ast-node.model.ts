@@ -2,6 +2,7 @@ export enum AstNodeType {
     CallExpression = 'CallExpression',
     NumericalLiteral = 'NumericalLiteral',
     StringLiteral = 'StringLiteral',
+    Identifier = 'Identifier',
 }
 
 export interface OfAstNodeType {
@@ -12,7 +13,7 @@ export class CallExpression implements OfAstNodeType {
 
     public readonly type = AstNodeType.CallExpression;
 
-    constructor(public name: string,
+    constructor(public callee: CallExpression | Identifier,
                 public args: Array<AstNode>) { }
 }
 
@@ -26,6 +27,13 @@ export class NumericalLiteral implements OfAstNodeType {
 export class StringLiteral implements OfAstNodeType {
 
     public readonly type = AstNodeType.StringLiteral;
+
+    constructor(public value: string) { }
+}
+
+export class Identifier implements OfAstNodeType {
+
+    public readonly type = AstNodeType.Identifier;
 
     constructor(public value: string) { }
 }

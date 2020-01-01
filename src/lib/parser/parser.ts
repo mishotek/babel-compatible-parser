@@ -2,7 +2,7 @@ import {Token} from "../tokenizer/types/token.model";
 import {AST} from "./types/ast.model";
 import {ParserConfig, ParserFn} from "./types/parser.model";
 import {parserConfig} from "./parser.config";
-import {defaultParser} from "./parsing-functions";
+import {defaultParser} from "./parser-functions/default-parser";
 
 export function parse(tokens: Token[]): AST {
     const ast: AST = [];

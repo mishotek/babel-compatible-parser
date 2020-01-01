@@ -3,7 +3,7 @@ import * as R from "ramda";
 const WHITESPACE = /\s+/;
 const LETTER = /[a-zA-Z]/;
 const NUMBER = /^[0-9]+$/;
-const OPERATORS = ['=', '>', '<', '=>'];
+const OPERATORS = ['=', '>', '<', '=>', '+', '-', '*', '/', ';', 'const', 'var'];
 
 export const isMatchingString: ((stringToMatch: string) => (arg: any) => boolean) = (stringToMatch: string) => (arg: any) => arg === stringToMatch;
 

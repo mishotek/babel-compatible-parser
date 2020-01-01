@@ -3,6 +3,7 @@ export enum AstNodeType {
     NumericalLiteral = 'NumericalLiteral',
     StringLiteral = 'StringLiteral',
     Identifier = 'Identifier',
+    VariableDeclaration = 'VariableDeclaration',
 }
 
 export interface OfAstNodeType {
@@ -38,4 +39,16 @@ export class Identifier implements OfAstNodeType {
     constructor(public value: string) { }
 }
 
-export type AstNode = CallExpression | NumericalLiteral | StringLiteral
+export class VariableDeclaration implements OfAstNodeType {
+
+    public readonly type = AstNodeType.VariableDeclaration;
+
+    constructor(public identifier: Identifier, public value: AstNode, public isConstant: boolean) { }
+}
+
+export type AstNode =
+    CallExpression |
+    NumericalLiteral |
+    StringLiteral |
+    Identifier |
+    VariableDeclaration

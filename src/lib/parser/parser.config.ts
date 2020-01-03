@@ -1,19 +1,9 @@
 import {ParserConfig} from "./types/parser.model";
-import {NumericalLiteralParser, NumericalLiteralPredicate} from "./parser-functions/numerical-literal-parser";
-import {StringLiteralParser, StringLiteralPredicate} from "./parser-functions/string-literal-parser";
-import {VariableDeclarationParser, VariableDeclarationPredicate} from "./parser-functions/variable-declaration-parser";
+import {literalParser, literalPredicate} from "./parser-functions/literal.parser";
 
 export const parserConfig: ParserConfig[] = [
     {
-        predicateFn: NumericalLiteralPredicate,
-        parserFn: NumericalLiteralParser
+        predicateFn: literalPredicate,
+        parserFn: literalParser
     },
-    {
-        predicateFn: StringLiteralPredicate,
-        parserFn: StringLiteralParser
-    },
-    {
-        predicateFn: VariableDeclarationPredicate,
-        parserFn: VariableDeclarationParser
-    }
 ];

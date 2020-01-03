@@ -1,6 +1,6 @@
 import {Token, TokenType} from "../lib/tokenizer/types/token.model";
 import {AST} from "../lib/parser/types/ast.model";
-import {Identifier, NumericalLiteral, StringLiteral, VariableDeclaration} from "../lib/parser/types/ast-node.model";
+import {Identifier, NumericalLiteral, StringLiteral, VariableDeclaration} from "../lib/parser/types/ast-expression.model";
 import {parse} from "../lib/parser/parser";
 import {Operators} from "../lib/helpers/operators";
 

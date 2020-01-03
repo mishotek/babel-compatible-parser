@@ -1,10 +1,10 @@
-import {AstNode} from "./ast-node.model";
+import {Expression} from "./ast-expression.model";
 import {Token} from "../../tokenizer/types/token.model";
 
-export type AST = AstNode[];
+export type AST = Expression[];
 
 export class AstMetaData {
 
-    constructor(public node: AstNode,
+    constructor(public expression: Expression,
                 public remainingTokens: Token[]) { }
 }

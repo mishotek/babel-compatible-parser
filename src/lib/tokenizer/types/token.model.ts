@@ -11,9 +11,9 @@ export enum TokenType {
 
 export class Token {
 
-    public static NullToken = new Token(TokenType.Null, '');
+    public static NullToken = new Token(TokenType.Null, '', NaN, NaN);
 
-    constructor(public type: TokenType, public value: string) {}
+    constructor(public type: TokenType, public value: string, public start: number, public end: number) {}
 
 }
 

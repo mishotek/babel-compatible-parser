@@ -14,3 +14,25 @@ export const tillTheEndOfStatement = (tokens: Token[]) => {
 
     return [...tokens].slice(0, lastIndex);
 };
+
+const tokenValueMatches = (value: string) => (token: Token) => token.value === value;
+
+export const tokensTill = (lastValue: string) => (tokens: Token[]): Token[] => {
+    const matchingTokenIndex = tokens.findIndex(tokenValueMatches(lastValue));
+
+    if (matchingTokenIndex === -1) {
+        return [];
+    }
+
+    return [...tokens].slice(0, matchingTokenIndex);
+};
+
+export const fromToken = (firstValue: string) => (tokens: Token[]): Token[] => {
+    const matchingTokenIndex = tokens.findIndex(tokenValueMatches(firstValue));
+
+    if (matchingTokenIndex === -1) {
+        return [];
+    }
+
+    return [...tokens].slice(matchingTokenIndex + 1);
+};

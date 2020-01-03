@@ -10,11 +10,15 @@ test('Should handle parenthesis', () => {
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 1,
+            end: 2,
         },
     ];
 
@@ -26,11 +30,15 @@ test('Should handle square brackets', () => {
     const result: Token[] = [
         {
             type: TokenType.SquareBrackets,
-            value: '['
+            value: '[',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.SquareBrackets,
-            value: ']'
+            value: ']',
+            start: 1,
+            end: 2,
         },
     ];
 
@@ -42,11 +50,15 @@ test('Should handle curly brackets', () => {
     const result: Token[] = [
         {
             type: TokenType.CurlyBrackets,
-            value: '{'
+            value: '{',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.CurlyBrackets,
-            value: '}'
+            value: '}',
+            start: 1,
+            end: 2,
         },
     ];
 
@@ -62,7 +74,9 @@ test('Should correctly tokenize single digit', () => {
     const result: Token[] = [
         {
             type: TokenType.Number,
-            value: '1'
+            value: '1',
+            start: 0,
+            end: 1,
         },
     ];
 
@@ -74,19 +88,27 @@ test('Should correctly tokenize multiple single digits', () => {
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.Number,
-            value: '2'
+            value: '2',
+            start: 1,
+            end: 2,
         },
         {
             type: TokenType.Number,
-            value: '6'
+            value: '6',
+            start: 3,
+            end: 4,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 4,
+            end: 5,
         },
     ];
 
@@ -98,7 +120,9 @@ test('Should correctly tokenize single letter', () => {
     const result: Token[] = [
         {
             type: TokenType.Name,
-            value: 'a'
+            value: 'a',
+            start: 0,
+            end: 1,
         },
     ];
 
@@ -110,19 +134,27 @@ test('Should correctly tokenize multiple letters', () => {
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.Name,
-            value: 'a'
+            value: 'a',
+            start: 1,
+            end: 2,
         },
         {
             type: TokenType.Name,
-            value: 'b'
+            value: 'b',
+            start: 3,
+            end: 4,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 4,
+            end: 5,
         },
     ];
 
@@ -134,7 +166,9 @@ test('Should correctly tokenize number', () => {
     const result: Token[] = [
         {
             type: TokenType.Number,
-            value: '69'
+            value: '69',
+            start: 0,
+            end: 2,
         },
     ];
 
@@ -146,19 +180,27 @@ test('Should correctly tokenize multiple numbers', () => {
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.Number,
-            value: '69'
+            value: '69',
+            start: 1,
+            end: 3,
         },
         {
             type: TokenType.Number,
-            value: '96'
+            value: '96',
+            start: 4,
+            end: 6,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 6,
+            end: 7,
         },
     ];
 
@@ -170,7 +212,9 @@ test('Should correctly tokenize names', () => {
     const result: Token[] = [
         {
             type: TokenType.Name,
-            value: 'abc'
+            value: 'abc',
+            start: 0,
+            end: 3,
         },
     ];
 
@@ -182,31 +226,45 @@ test('Should correctly tokenize multiple names', () => {
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.Name,
-            value: 'hell0'
+            value: 'hell0',
+            start: 1,
+            end: 6,
         },
         {
             type: TokenType.Name,
-            value: 'from'
+            value: 'from',
+            start: 7,
+            end: 11,
         },
         {
             type: TokenType.Name,
-            value: 'the'
+            value: 'the',
+            start: 12,
+            end: 15,
         },
         {
             type: TokenType.Name,
-            value: 'other'
+            value: 'other',
+            start: 16,
+            end: 21,
         },
         {
             type: TokenType.Name,
-            value: 'side'
+            value: 'side',
+            start: 22,
+            end: 26,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 26,
+            end: 27,
         },
     ];
 
@@ -218,7 +276,9 @@ test('Should correctly tokenize string', () => {
     const result: Token[] = [
         {
             type: TokenType.String,
-            value: 'abc'
+            value: 'abc',
+            start: 0,
+            end: 5,
         },
     ];
 
@@ -230,35 +290,51 @@ test('Should correctly tokenize multiple strings', () => {
     const result: Token[] = [
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 0,
+            end: 1,
         },
         {
             type: TokenType.String,
-            value: '123'
+            value: '123',
+            start: 1,
+            end: 6,
         },
         {
             type: TokenType.String,
-            value: 'string with space'
+            value: 'string with space',
+            start: 7,
+            end: 26,
         },
         {
             type: TokenType.Number,
-            value: '123'
+            value: '123',
+            start: 27,
+            end: 30,
         },
         {
             type: TokenType.Name,
-            value: 'YeY'
+            value: 'YeY',
+            start: 31,
+            end: 34,
         },
         {
             type: TokenType.String,
-            value: 'co0l'
+            value: 'co0l',
+            start: 35,
+            end: 41,
         },
         {
             type: TokenType.String,
-            value: ''
+            value: '',
+            start: 42,
+            end: 44,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 44,
+            end: 45,
         },
     ];
 
@@ -272,35 +348,51 @@ test('Should correctly tokenize lambda function operator', () => {
     const result: Token[] = [
         {
             type: TokenType.Name,
-            value: 'string'
+            value: 'string',
+            start: 0,
+            end: 6,
         },
         {
             type: TokenType.Operator,
-            value: '=>'
+            value: '=>',
+            start: 7,
+            end: 9,
         },
         {
             type: TokenType.CurlyBrackets,
-            value: '{'
+            value: '{',
+            start: 10,
+            end: 11,
         },
         {
             type: TokenType.Name,
-            value: 'print'
+            value: 'print',
+            start: 34,
+            end: 39,
         },
         {
             type: TokenType.Parenthesis,
-            value: '('
+            value: '(',
+            start: 39,
+            end: 40,
         },
         {
             type: TokenType.Name,
-            value: 'string'
+            value: 'string',
+            start: 40,
+            end: 46,
         },
         {
             type: TokenType.Parenthesis,
-            value: ')'
+            value: ')',
+            start: 46,
+            end: 47,
         },
         {
             type: TokenType.CurlyBrackets,
-            value: '}'
+            value: '}',
+            start: 67,
+            end: 68,
         },
     ];
 
@@ -315,4 +407,9 @@ test('Should not parse invalid number', () => {
 test('Should not parse invalid operator', () => {
     const input = 'arg =?> myFn(arg)';
     expect(() => tokenize(input)).toThrowError(SyntaxError);
+});
+
+test('Should not recognize non ASCII character at the beginning', () => {
+    const input = 'აბა თუ გაპარსავ?';
+    expect(() => tokenize(input)).toThrowError(TypeError);
 });

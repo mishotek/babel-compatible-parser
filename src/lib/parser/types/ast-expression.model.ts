@@ -5,12 +5,21 @@ export enum AstNodeType {
     Literal = 'Literal',
     Identifier = 'Identifier',
     BinaryExpression = 'BinaryExpression',
+    EmptyNode = 'EmptyNode',
 }
 
 export interface OfAstNodeType {
     type: AstNodeType,
     start: number,
     end: number
+}
+
+export class EmptyNode implements OfAstNodeType {
+
+    public readonly type = AstNodeType.EmptyNode;
+    public start = NaN;
+    public end = NaN;
+
 }
 
 export class ExpressionStatement implements OfAstNodeType {
@@ -45,4 +54,8 @@ export class Identifier implements OfAstNodeType {
 
 }
 
-export type AstNode = ExpressionStatement | BinaryExpression | Literal | Identifier;
+export type AstNode = EmptyNode |
+    ExpressionStatement |
+    BinaryExpression |
+    Literal |
+    Identifier;

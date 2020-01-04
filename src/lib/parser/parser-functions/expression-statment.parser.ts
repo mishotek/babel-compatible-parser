@@ -6,8 +6,13 @@ import {AstNode, AstNodeType, ExpressionStatement} from "../types/ast-expression
 import {AstMetaData} from "../types/ast.model";
 import {binaryExpressionParser, binaryExpressionPredicate} from "./binary-expression.parser";
 import R = require("ramda");
+import {parenthesisParser, parenthesisPredicate} from "./parenthesis.parser";
 
-export const expressionStatementPredicate: PredicateFn = R.either(binaryExpressionPredicate, literalPredicate);
+export const expressionStatementPredicate: PredicateFn = R.anyPass([
+    binaryExpressionPredicate,
+    literalPredicate,
+    parenthesisPredicate
+]);
 
 const parseInnerExpression: ParserFn = (tokens: Token[]) => {
     if (binaryExpressionPredicate(tokens)) {
@@ -18,13 +23,25 @@ const parseInnerExpression: ParserFn = (tokens: Token[]) => {
         return literalParser(tokens);
     }
 
+    if (parenthesisPredicate(tokens)) {
+        return parenthesisParser(tokens);
+    }
+
     return defaultParser(tokens);
 };
 
 export const expressionStatementParser: ParserFn = (tokens: Token[]) => {
     const {node, remainingTokens} = parseInnerExpression(tokens);
 
-    return new AstMetaData(new ExpressionStatement(node.start, node.end, node), remainingTokens);
+    return new AstMetaData(wrapInExpressionStatement(node), remainingTokens);
+};
+
+export const wrapInExpressionStatement: (node: AstNode) => ExpressionStatement = (node: AstNode) => {
+    if (node.type === AstNodeType.ExpressionStatement) {
+        return node;
+    }
+
+    return new ExpressionStatement(node.start, node.end, node);
 };
 
 export const stripExpressionStatement: (astNode: AstNode) => AstNode = (astNode: AstNode) => {

@@ -36,3 +36,30 @@ export const fromToken = (firstValue: string) => (tokens: Token[]): Token[] => {
 
     return [...tokens].slice(matchingTokenIndex + 1);
 };
+
+export const tokensInParenthesis: (tokens: Token[]) => Token[] = (tokens: Token[]) => {
+    if (tokens.length == 0 || tokens[0].value != '(') {
+        return [];
+    }
+
+    let parenthesisCounter = 1;
+    const tokensInside: Token[] = [];
+
+    for (let i = 1; i < tokens.length; i++) {
+        const token = tokens[i];
+
+        if (token.type === TokenType.Parenthesis && token.value === '(') {
+            parenthesisCounter++;
+        } else if (token.type === TokenType.Parenthesis && token.value === ')') {
+            parenthesisCounter--;
+        }
+
+        if (parenthesisCounter === 0) {
+            return tokensInside;
+        }
+
+        tokensInside.push(token);
+    }
+
+    throw new Error('Not enough closing parenthesis!');
+};

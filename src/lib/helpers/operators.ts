@@ -11,3 +11,10 @@ export class Operators {
     public static readonly Multiply = '*';
     public static readonly Divide = '/';
 }
+
+export const BinaryExpressions: Operators[] = [
+    Operators.Add,
+    Operators.Subtract,
+    Operators.Multiply,
+    Operators.Divide,
+];

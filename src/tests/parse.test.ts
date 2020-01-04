@@ -1,49 +1,97 @@
 import {Token, TokenType} from "../lib/tokenizer/types/token.model";
-import {AST} from "../lib/parser/types/ast.model";
-import {Identifier, NumericalLiteral, StringLiteral, VariableDeclaration} from "../lib/parser/types/ast-expression.model";
 import {parse} from "../lib/parser/parser";
-import {Operators} from "../lib/helpers/operators";
 
 test('Should parse numerical literal', () => {
-    const tokens: Token[] = [ new Token(TokenType.Number, '12') ];
-    const ast: AST = [ new NumericalLiteral(12) ];
+    const tokens: Token[] = [ new Token(TokenType.Number, '2', 0, 1) ];
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 1,
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 1,
+                "expression": {
+                    "type": "Literal",
+                    "start": 0,
+                    "end": 1,
+                    "value": 2,
+                    "raw": "2"
+                }
+            }
+        ],
+        "sourceType": "module"
+    };
 
     expect(parse(tokens)).toEqual(ast);
 });
 
 test('Should parse string literal', () => {
-    const tokens: Token[] = [ new Token(TokenType.String, 'string with space') ];
-    const ast: AST = [ new StringLiteral('string with space') ];
+    const tokens: Token[] = [ new Token(TokenType.String, 'string with space', 0, 19) ];
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 19,
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 19,
+                "expression": {
+                    "type": "Literal",
+                    "start": 0,
+                    "end": 19,
+                    "value": "string with space",
+                    "raw": "'string with space'"
+                }
+            }
+        ],
+        "sourceType": "module"
+    };
 
     expect(parse(tokens)).toEqual(ast);
 });
 
-test('Should parse variable declaration', () => {
+test('Should parse string simple binary expression', () => {
     const tokens: Token[] = [
-        new Token(TokenType.Operator, Operators.VariableDeclaration),
-        new Token(TokenType.Name, 'myVar'),
-        new Token(TokenType.Operator, Operators.Assignment),
-        new Token(TokenType.String, 'my var value'),
-        new Token(TokenType.Operator, Operators.EndOfStatement)
+        new Token(TokenType.Number, '1', 0, 1),
+        new Token(TokenType.Operator, '+', 2, 3),
+        new Token(TokenType.Number, '2', 4, 5),
     ];
-    const ast: AST = [
-        new VariableDeclaration(new Identifier('myVar'), new StringLiteral('my var value'), false)
-    ];
-
-    expect(parse(tokens)).toEqual(ast);
-});
-
-test('Should parse constant variable declaration', () => {
-    const tokens: Token[] = [
-        new Token(TokenType.Operator, Operators.ConstantDeclaration),
-        new Token(TokenType.Name, 'myConst'),
-        new Token(TokenType.Operator, Operators.Assignment),
-        new Token(TokenType.Number, '12'),
-        new Token(TokenType.Operator, Operators.EndOfStatement)
-    ];
-    const ast: AST = [
-        new VariableDeclaration(new Identifier('myConst'), new NumericalLiteral(12), true)
-    ];
-
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 5,
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 5,
+                "expression": {
+                    "type": "BinaryExpression",
+                    "start": 0,
+                    "end": 5,
+                    "left": {
+                        "type": "Literal",
+                        "start": 0,
+                        "end": 1,
+                        "value": 1,
+                        "raw": "1"
+                    },
+                    "operator": "+",
+                    "right": {
+                        "type": "Literal",
+                        "start": 4,
+                        "end": 5,
+                        "value": 2,
+                        "raw": "2"
+                    }
+                }
+            }
+        ],
+        "sourceType": "module"
+    };
+    console.log(parse(tokens));
     expect(parse(tokens)).toEqual(ast);
 });

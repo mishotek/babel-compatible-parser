@@ -3,7 +3,7 @@ import {Token, TokenType} from "../../tokenizer/types/token.model";
 import {AstMetaData} from "../types/ast.model";
 import {Literal} from "../types/ast-expression.model";
 import R = require("ramda");
-import {defaultParser} from "./default-parser";
+import {defaultParser} from "./default.parser";
 
 const numericalLiteralPredicate: PredicateFn = (tokens: Token[]) => {
     return tokens.length > 0 && tokens[0].type === TokenType.Number
@@ -28,7 +28,7 @@ const stringLiteralParser: ParserFn = (tokens: Token[]) => {
         stringToken.start,
         stringToken.end,
         stringToken.value,
-        stringToken.value), otherTokens);
+        "'" + stringToken.value + "'"), otherTokens);
 };
 
 export const literalPredicate: PredicateFn = R.either(numericalLiteralPredicate, stringLiteralPredicate);

@@ -6,6 +6,7 @@ export enum AstNodeType {
     Identifier = 'Identifier',
     BinaryExpression = 'BinaryExpression',
     EmptyNode = 'EmptyNode',
+    Parenthesis = 'Parenthesis',
 }
 
 export interface OfAstNodeType {
@@ -25,6 +26,14 @@ export class EmptyNode implements OfAstNodeType {
 export class ExpressionStatement implements OfAstNodeType {
 
     public readonly type = AstNodeType.ExpressionStatement;
+
+    constructor(public start: number, public end: number, public expression: AstNode) { }
+
+}
+
+export class Parenthesis implements OfAstNodeType {
+
+    public readonly type = AstNodeType.Parenthesis;
 
     constructor(public start: number, public end: number, public expression: AstNode) { }
 
@@ -56,6 +65,7 @@ export class Identifier implements OfAstNodeType {
 
 export type AstNode = EmptyNode |
     ExpressionStatement |
+    Parenthesis |
     BinaryExpression |
     Literal |
     Identifier;

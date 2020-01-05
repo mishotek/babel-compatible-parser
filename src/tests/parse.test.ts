@@ -432,3 +432,43 @@ test('Should parse stacked binary expression with multiple parenthesis', () => {
 
     expect(parse(tokens)).toEqual(ast);
 });
+
+test('Should parse stacked binary expression with multiple parenthesis inside of each other', () => {
+    const tokens: Token[] = tokenize('(((((1 / 2)))))');
+
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 15,
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 15,
+                "expression": {
+                    "type": "BinaryExpression",
+                    "start": 5,
+                    "end": 10,
+                    "left": {
+                        "type": "Literal",
+                        "start": 5,
+                        "end": 6,
+                        "value": 1,
+                        "raw": "1"
+                    },
+                    "operator": "/",
+                    "right": {
+                        "type": "Literal",
+                        "start": 9,
+                        "end": 10,
+                        "value": 2,
+                        "raw": "2"
+                    }
+                }
+            }
+        ],
+        "sourceType": "module"
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});

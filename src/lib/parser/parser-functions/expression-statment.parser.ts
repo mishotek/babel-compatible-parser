@@ -1,12 +1,11 @@
 import {ParserFn, PredicateFn} from "../types/parser.model";
 import {Token} from "../../tokenizer/types/token.model";
-import {literalParser, literalPredicate} from "./literal.parser";
-import {defaultParser} from "./default.parser";
+import {literalPredicate} from "./literal.parser";
 import {AstNode, AstNodeType, EmptyNode, ExpressionStatement} from "../types/ast-expression.model";
 import {AstMetaData} from "../types/ast.model";
 import {binaryExpressionParser, binaryExpressionPredicate} from "./binary-expression.parser";
 import R = require("ramda");
-import {parenthesisParser, parenthesisPredicate} from "./parenthesis.parser";
+import {parenthesisPredicate, stripParenthesis} from "./parenthesis.parser";
 import {afterTheEndOfStatement, tillTheEndOfStatement} from "../../helpers/token-operations";
 import {__singleTurnParser} from "../parser";
 
@@ -46,7 +45,7 @@ export const wrapInExpressionStatement: (node: AstNode) => ExpressionStatement =
         return node;
     }
 
-    return new ExpressionStatement(node.start, node.end, node);
+    return new ExpressionStatement(node.start, node.end, stripParenthesis(node));
 };
 
 export const stripExpressionStatement: (astNode: AstNode) => AstNode = (astNode: AstNode) => {

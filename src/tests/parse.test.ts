@@ -144,17 +144,17 @@ test('Should parse simple binary expression with parenthesis around', () => {
 });
 
 test('Should parse stacked binary expression', () => {
-    const tokens: Token[] = tokenize('1 + 2 + 3');
+    const tokens: Token[] = tokenize('1 + 2 + 3;');
 
     const ast = {
         "type": "Program",
         "start": 0,
-        "end": 9,
+        "end": 10,
         "body": [
             {
                 "type": "ExpressionStatement",
                 "start": 0,
-                "end": 9,
+                "end": 10,
                 "expression": {
                     "type": "BinaryExpression",
                     "start": 0,
@@ -197,17 +197,17 @@ test('Should parse stacked binary expression', () => {
 });
 
 test('Should parse stacked binary expression with parenthesis', () => {
-    const tokens: Token[] = tokenize('1 + (2 + 3)');
+    const tokens: Token[] = tokenize('1 + (2 + 3);');
 
     const ast = {
         "type": "Program",
         "start": 0,
-        "end": 11,
+        "end": 12,
         "body": [
             {
                 "type": "ExpressionStatement",
                 "start": 0,
-                "end": 11,
+                "end": 12,
                 "expression": {
                     "type": "BinaryExpression",
                     "start": 0,
@@ -250,17 +250,17 @@ test('Should parse stacked binary expression with parenthesis', () => {
 });
 
 test('Should parse stacked binary expression with parenthesis', () => {
-    const tokens: Token[] = tokenize('(1 + 2) + (3 + 4)');
+    const tokens: Token[] = tokenize('(1 + 2) + (3 + 4);');
 
     const ast = {
         "type": "Program",
         "start": 0,
-        "end": 17,
+        "end": 18,
         "body": [
             {
                 "type": "ExpressionStatement",
                 "start": 0,
-                "end": 17,
+                "end": 18,
                 "expression": {
                     "type": "BinaryExpression",
                     "start": 0,
@@ -316,17 +316,17 @@ test('Should parse stacked binary expression with parenthesis', () => {
 });
 
 test('Should parse stacked binary expression with multiple parenthesis', () => {
-    const tokens: Token[] = tokenize('(1 + 2) + (3 + 4) + ((5 * 6) / (7 - 8))');
+    const tokens: Token[] = tokenize('(1 + 2) + (3 + 4) + ((5 * 6) / (7 - 8));');
 
     const ast = {
         "type": "Program",
         "start": 0,
-        "end": 39,
+        "end": 40,
         "body": [
             {
                 "type": "ExpressionStatement",
                 "start": 0,
-                "end": 39,
+                "end": 40,
                 "expression": {
                     "type": "BinaryExpression",
                     "start": 0,
@@ -434,17 +434,17 @@ test('Should parse stacked binary expression with multiple parenthesis', () => {
 });
 
 test('Should parse stacked binary expression with multiple parenthesis inside of each other', () => {
-    const tokens: Token[] = tokenize('(((((1 / 2)))))');
+    const tokens: Token[] = tokenize('(((((1 / 2)))));');
 
     const ast = {
         "type": "Program",
         "start": 0,
-        "end": 15,
+        "end": 16,
         "body": [
             {
                 "type": "ExpressionStatement",
                 "start": 0,
-                "end": 15,
+                "end": 16,
                 "expression": {
                     "type": "BinaryExpression",
                     "start": 5,

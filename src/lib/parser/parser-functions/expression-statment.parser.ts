@@ -8,6 +8,7 @@ import R = require("ramda");
 import {parenthesisPredicate, stripParenthesis} from "./parenthesis.parser";
 import {afterTheEndOfStatement, tillTheEndOfStatement} from "../../helpers/token-operations";
 import {__singleTurnParser} from "../parser";
+import {Operators} from "../../helpers/operators";
 
 export const expressionStatementPredicate: PredicateFn = R.anyPass([
     binaryExpressionPredicate,
@@ -27,6 +28,8 @@ export const expressionStatementParser: ParserFn = (tokens: Token[]) => {
     const _expressionTokens: Token[] = tillTheEndOfStatement(tokens);
     const _remainingTokens: Token[] = afterTheEndOfStatement(tokens);
 
+    const endsWithEndOfStatement = tokens.length > _expressionTokens.length && tokens[_expressionTokens.length].value === Operators.EndOfStatement;
+
     let expressionTokens: Token[] = _expressionTokens;
     let recentNode: AstNode = new EmptyNode();
 
@@ -37,15 +40,18 @@ export const expressionStatementParser: ParserFn = (tokens: Token[]) => {
         recentNode = node;
     }
 
-    return new AstMetaData(wrapInExpressionStatement(recentNode), _remainingTokens);
+    return new AstMetaData(wrapInExpressionStatement(recentNode, endsWithEndOfStatement), _remainingTokens);
 };
 
-export const wrapInExpressionStatement: (node: AstNode) => ExpressionStatement = (node: AstNode) => {
+export const wrapInExpressionStatement: (node: AstNode, endsWithEndOfStatement: boolean) => ExpressionStatement = (node: AstNode, endsWithEndOfStatement: boolean) => {
     if (node.type === AstNodeType.ExpressionStatement) {
         return node;
     }
 
-    return new ExpressionStatement(node.start, node.end, stripParenthesis(node));
+    const start = node.start;
+    const end = endsWithEndOfStatement ? node.end + 1 : node.end;
+
+    return new ExpressionStatement(start, end, stripParenthesis(node));
 };
 
 export const stripExpressionStatement: (astNode: AstNode) => AstNode = (astNode: AstNode) => {

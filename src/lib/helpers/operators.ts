@@ -12,6 +12,8 @@ export class Operators {
     public static readonly Divide = '/';
 }
 
+export const OPERATORS = ['=', '>', '<', '=>', '+', '-', '*', '/', ';', 'const', 'var'];
+
 export const BinaryExpressions: Operators[] = [
     Operators.Add,
     Operators.Subtract,

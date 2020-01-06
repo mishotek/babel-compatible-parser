@@ -2,6 +2,7 @@ import {Token, TokenizerFn, TokenMetaData, TokenType} from "./types/token.model"
 import {isLetter, isNumber, isOperator, isQuote, isWhitespace} from "../helpers/identify";
 import * as R from "ramda";
 import {cutTillWhiteSpace} from "../helpers/split-string";
+import {OPERATORS} from "../helpers/operators";
 
 export const whitespaceTokenizer: TokenizerFn = (input, cursor) => {
   return new TokenMetaData(Token.NullToken, cursor + 1);
@@ -81,3 +82,14 @@ export const operatorTokenizer: TokenizerFn = (input, cursor) => {
 export const defaultTokenizer: TokenizerFn = (input, cursor) => {
   throw new TypeError(`Unsupported character: ${input[cursor]}`);
 };
+
+export const isOperatorString = (str: string) => {
+  return OPERATORS.some(operator => {
+    const startsWithOperator = str.indexOf(operator) === 0;
+    const isNotFollowedByLetter = !isLetter(str[operator.length]);
+
+    return startsWithOperator && isNotFollowedByLetter;
+  });
+};
+
+export const WithSingleChar = (fn: (char: string) => boolean) => (str: string) => fn(str[0]);

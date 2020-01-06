@@ -3,7 +3,7 @@ import {Token, TokenType} from "../../tokenizer/types/token.model";
 import {tokensInParenthesis} from "../../helpers/token-operations";
 import {AstMetaData} from "../types/ast.model";
 import {__parse} from "../parser";
-import {AstNode, AstNodeType, EmptyNode, Parenthesis} from "../types/ast-expression.model";
+import {AstNode, AstNodeType, EmptyNode, Parenthesis} from "../types/ast-nodes.model";
 import {Box} from "../../helpers/box";
 import {bottom, top} from "../../helpers/array-helpers";
 import {stripExpressionStatement} from "./expression-statment.parser";

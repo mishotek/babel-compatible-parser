@@ -1,4 +1,5 @@
 import {Operators} from "../../helpers/operators";
+import {VariableDeclarationTypes} from "./variable-declaration";
 
 export enum AstNodeType {
     ExpressionStatement = 'ExpressionStatement',
@@ -7,6 +8,8 @@ export enum AstNodeType {
     BinaryExpression = 'BinaryExpression',
     EmptyNode = 'EmptyNode',
     Parenthesis = 'Parenthesis',
+    VariableDeclaration = 'VariableDeclaration',
+    VariableDeclarator = 'VariableDeclarator',
 }
 
 export interface OfAstNodeType {
@@ -20,6 +23,22 @@ export class EmptyNode implements OfAstNodeType {
     public readonly type = AstNodeType.EmptyNode;
     public start = NaN;
     public end = NaN;
+
+}
+
+export class VariableDeclarator implements OfAstNodeType {
+
+    public readonly type = AstNodeType.VariableDeclarator;
+
+    constructor(public start: number, public end: number, public id: Identifier, public init: AstNode) { }
+
+}
+
+export class VariableDeclaration implements OfAstNodeType {
+
+    public readonly type = AstNodeType.VariableDeclaration;
+
+    constructor(public start: number, public end: number, public declarations: VariableDeclarator[], public kind: VariableDeclarationTypes) { }
 
 }
 
@@ -59,11 +78,13 @@ export class Identifier implements OfAstNodeType {
 
     public readonly type = AstNodeType.Identifier;
 
-    constructor(public start: number, public end: number, name: number) { }
+    constructor(public start: number, public end: number, public name: string) { }
 
 }
 
 export type AstNode = EmptyNode |
+    VariableDeclaration |
+    VariableDeclarator |
     ExpressionStatement |
     Parenthesis |
     BinaryExpression |

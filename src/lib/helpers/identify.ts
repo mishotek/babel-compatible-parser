@@ -1,9 +1,9 @@
 import * as R from "ramda";
+import {OPERATORS} from "./operators";
 
 const WHITESPACE = /\s+/;
 const LETTER = /[a-zA-Z]/;
 const NUMBER = /^[0-9]+$/;
-const OPERATORS = ['=', '>', '<', '=>', '+', '-', '*', '/', ';', 'const', 'var'];
 
 export const isMatchingString: ((stringToMatch: string) => (arg: any) => boolean) = (stringToMatch: string) => (arg: any) => arg === stringToMatch;
 
@@ -13,7 +13,7 @@ export const isLetter: (char: string) => boolean = char => !!char && LETTER.test
 
 export const isNumber: (char: string) => boolean = char => !!char && NUMBER.test(char);
 
-export const isOperator: (char: string) => boolean = char => !!char && OPERATORS.includes(char);
+export const isOperator: (str: string) => boolean = str => !!str && OPERATORS.includes(str);
 
 export const isOpeningParenthesis: (char: string) => boolean = isMatchingString('(');
 export const isClosingParenthesis: (char: string) => boolean = isMatchingString(')');

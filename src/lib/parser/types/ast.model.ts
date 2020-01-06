@@ -1,4 +1,4 @@
-import {AstNode} from "./ast-expression.model";
+import {AstNode} from "./ast-nodes.model";
 import {Token} from "../../tokenizer/types/token.model";
 
 export class AST {

@@ -1,7 +1,7 @@
 import {ParserFn, PredicateFn} from "../types/parser.model";
 import {Token} from "../../tokenizer/types/token.model";
 import {literalPredicate} from "./literal.parser";
-import {AstNode, AstNodeType, EmptyNode, ExpressionStatement} from "../types/ast-expression.model";
+import {AstNode, AstNodeType, EmptyNode, ExpressionStatement} from "../types/ast-nodes.model";
 import {AstMetaData} from "../types/ast.model";
 import {binaryExpressionParser, binaryExpressionPredicate} from "./binary-expression.parser";
 import R = require("ramda");
@@ -9,6 +9,7 @@ import {parenthesisPredicate, stripParenthesis} from "./parenthesis.parser";
 import {afterTheEndOfStatement, tillTheEndOfStatement} from "../../helpers/token-operations";
 import {__singleTurnParser} from "../parser";
 import {Operators} from "../../helpers/operators";
+import {endsWithEndOfStatement} from "../../helpers/ends-with-end-of-statement";
 
 export const expressionStatementPredicate: PredicateFn = R.anyPass([
     binaryExpressionPredicate,
@@ -28,7 +29,7 @@ export const expressionStatementParser: ParserFn = (tokens: Token[]) => {
     const _expressionTokens: Token[] = tillTheEndOfStatement(tokens);
     const _remainingTokens: Token[] = afterTheEndOfStatement(tokens);
 
-    const endsWithEndOfStatement = tokens.length > _expressionTokens.length && tokens[_expressionTokens.length].value === Operators.EndOfStatement;
+    const _endsWithEndOfStatement = endsWithEndOfStatement(tokens, _expressionTokens);
 
     let expressionTokens: Token[] = _expressionTokens;
     let recentNode: AstNode = new EmptyNode();
@@ -40,7 +41,7 @@ export const expressionStatementParser: ParserFn = (tokens: Token[]) => {
         recentNode = node;
     }
 
-    return new AstMetaData(wrapInExpressionStatement(recentNode, endsWithEndOfStatement), _remainingTokens);
+    return new AstMetaData(wrapInExpressionStatement(recentNode, _endsWithEndOfStatement), _remainingTokens);
 };
 
 export const wrapInExpressionStatement: (node: AstNode, endsWithEndOfStatement: boolean) => ExpressionStatement = (node: AstNode, endsWithEndOfStatement: boolean) => {

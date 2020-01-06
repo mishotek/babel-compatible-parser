@@ -3,7 +3,7 @@ import {AST, AstMetaData} from "./types/ast.model";
 import {ParserConfig, ParserFn} from "./types/parser.model";
 import {parserConfig} from "./parser.config";
 import {defaultParser} from "./parser-functions/default.parser";
-import {AstNode} from "./types/ast-expression.model";
+import {AstNode} from "./types/ast-nodes.model";
 import {expressionStatementParser} from "./parser-functions/expression-statment.parser";
 import R = require("ramda");
 

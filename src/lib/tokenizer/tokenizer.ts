@@ -7,8 +7,8 @@ export function tokenize(input: string): Token[] {
     let _cursor = 0;
 
     while (_cursor < input.length) {
-        const char = input[_cursor];
-        const tokenizerFn: TokenizerFn = getTokenizerFn(char);
+        const str = input.slice(_cursor);
+        const tokenizerFn: TokenizerFn = getTokenizerFn(str);
         const {token, cursor} = tokenizerFn(input, _cursor);
         _cursor = cursor;
         tokens.push(token);

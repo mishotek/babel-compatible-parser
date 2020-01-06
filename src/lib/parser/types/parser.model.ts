@@ -1,6 +1,6 @@
 import {Token} from "../../tokenizer/types/token.model";
 import {AstMetaData} from "./ast.model";
-import {AstNode} from "./ast-expression.model";
+import {AstNode} from "./ast-nodes.model";
 
 export type ParserFn = (tokens: Token[]) => AstMetaData;
 export type ParserFnWithLeftNode = (tokens: Token[], leftNode: AstNode) => AstMetaData;

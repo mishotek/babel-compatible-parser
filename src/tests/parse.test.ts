@@ -472,3 +472,215 @@ test('Should parse stacked binary expression with multiple parenthesis inside of
 
     expect(parse(tokens)).toEqual(ast);
 });
+
+// test('Should parse multi line expression', () => {
+//     const tokens: Token[] = tokenize(`1 + 2; (2) + 5 / 12 * (1 + (2 + 5));`);
+//
+//     const ast = {
+//         "type": "Program",
+//         "start": 0,
+//         "end": 36,
+//         "body": [
+//             {
+//                 "type": "ExpressionStatement",
+//                 "start": 0,
+//                 "end": 6,
+//                 "expression": {
+//                     "type": "BinaryExpression",
+//                     "start": 0,
+//                     "end": 5,
+//                     "left": {
+//                         "type": "Literal",
+//                         "start": 0,
+//                         "end": 1,
+//                         "value": 1,
+//                         "raw": "1"
+//                     },
+//                     "operator": "+",
+//                     "right": {
+//                         "type": "Literal",
+//                         "start": 4,
+//                         "end": 5,
+//                         "value": 2,
+//                         "raw": "2"
+//                     }
+//                 }
+//             },
+//             {
+//                 "type": "ExpressionStatement",
+//                 "start": 7,
+//                 "end": 36,
+//                 "expression": {
+//                     "type": "BinaryExpression",
+//                     "start": 7,
+//                     "end": 35,
+//                     "left": {
+//                         "type": "Literal",
+//                         "start": 8,
+//                         "end": 9,
+//                         "value": 2,
+//                         "raw": "2"
+//                     },
+//                     "operator": "+",
+//                     "right": {
+//                         "type": "BinaryExpression",
+//                         "start": 13,
+//                         "end": 35,
+//                         "left": {
+//                             "type": "BinaryExpression",
+//                             "start": 13,
+//                             "end": 19,
+//                             "left": {
+//                                 "type": "Literal",
+//                                 "start": 13,
+//                                 "end": 14,
+//                                 "value": 5,
+//                                 "raw": "5"
+//                             },
+//                             "operator": "/",
+//                             "right": {
+//                                 "type": "Literal",
+//                                 "start": 17,
+//                                 "end": 19,
+//                                 "value": 12,
+//                                 "raw": "12"
+//                             }
+//                         },
+//                         "operator": "*",
+//                         "right": {
+//                             "type": "BinaryExpression",
+//                             "start": 23,
+//                             "end": 34,
+//                             "left": {
+//                                 "type": "Literal",
+//                                 "start": 23,
+//                                 "end": 24,
+//                                 "value": 1,
+//                                 "raw": "1"
+//                             },
+//                             "operator": "+",
+//                             "right": {
+//                                 "type": "BinaryExpression",
+//                                 "start": 28,
+//                                 "end": 33,
+//                                 "left": {
+//                                     "type": "Literal",
+//                                     "start": 28,
+//                                     "end": 29,
+//                                     "value": 2,
+//                                     "raw": "2"
+//                                 },
+//                                 "operator": "+",
+//                                 "right": {
+//                                     "type": "Literal",
+//                                     "start": 32,
+//                                     "end": 33,
+//                                     "value": 5,
+//                                     "raw": "5"
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         ],
+//         "sourceType": "module"
+//     };
+//
+//     expect(parse(tokens)).toEqual(ast);
+// });
+
+test('Should parse simple variable declaration', () => {
+    const tokens: Token[] = tokenize('var a = 2;');
+
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 10,
+        "body": [
+            {
+                "type": "VariableDeclaration",
+                "start": 0,
+                "end": 10,
+                "declarations": [
+                    {
+                        "type": "VariableDeclarator",
+                        "start": 4,
+                        "end": 9,
+                        "id": {
+                            "type": "Identifier",
+                            "start": 4,
+                            "end": 5,
+                            "name": "a"
+                        },
+                        "init": {
+                            "type": "Literal",
+                            "start": 8,
+                            "end": 9,
+                            "value": 2,
+                            "raw": "2"
+                        }
+                    }
+                ],
+                "kind": "var"
+            }
+        ],
+        "sourceType": "module"
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
+test('Should parse simple constant variable declaration with binary operation', () => {
+    const tokens: Token[] = tokenize('const myVar = 10 + 2;');
+
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 21,
+        "body": [
+            {
+                "type": "VariableDeclaration",
+                "start": 0,
+                "end": 21,
+                "declarations": [
+                    {
+                        "type": "VariableDeclarator",
+                        "start": 6,
+                        "end": 20,
+                        "id": {
+                            "type": "Identifier",
+                            "start": 6,
+                            "end": 11,
+                            "name": "myVar"
+                        },
+                        "init": {
+                            "type": "BinaryExpression",
+                            "start": 14,
+                            "end": 20,
+                            "left": {
+                                "type": "Literal",
+                                "start": 14,
+                                "end": 16,
+                                "value": 10,
+                                "raw": "10"
+                            },
+                            "operator": "+",
+                            "right": {
+                                "type": "Literal",
+                                "start": 19,
+                                "end": 20,
+                                "value": 2,
+                                "raw": "2"
+                            }
+                        }
+                    }
+                ],
+                "kind": "const"
+            }
+        ],
+        "sourceType": "module"
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});

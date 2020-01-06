@@ -1,6 +1,6 @@
 import {ParserFnWithLeftNode, PredicateFn} from "../types/parser.model";
 import {Token, TokenType} from "../../tokenizer/types/token.model";
-import {AstNode, BinaryExpression} from "../types/ast-expression.model";
+import {AstNode, BinaryExpression} from "../types/ast-nodes.model";
 import {BinaryExpressions, Operators} from "../../helpers/operators";
 import {AstMetaData} from "../types/ast.model";
 import {stripExpressionStatement} from "./expression-statment.parser";

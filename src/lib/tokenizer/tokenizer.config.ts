@@ -9,45 +9,45 @@ import {
   isWhitespace
 } from "../helpers/identify";
 import {
-  curlyBracketsTokenizer,
+  curlyBracketsTokenizer, isOperatorString,
   letterTokenizer,
   numberTokenizer, operatorTokenizer,
   parenthesisTokenizer,
   squareBracketsTokenizer,
-  stringTokenizer, whitespaceTokenizer
+  stringTokenizer, whitespaceTokenizer, WithSingleChar
 } from "./tokenizer-functions";
 
 export const tokenizerConfig: TokenizerConfig[] = [
   {
-    predicateFn: isQuote,
+    predicateFn: WithSingleChar(isQuote),
     tokenizerFn: stringTokenizer
   },
   {
-    predicateFn: isParenthesis,
+    predicateFn: WithSingleChar(isParenthesis),
     tokenizerFn: parenthesisTokenizer
   },
   {
-    predicateFn: isSquareBracket,
+    predicateFn: WithSingleChar(isSquareBracket),
     tokenizerFn: squareBracketsTokenizer
   },
   {
-    predicateFn: isCurlyBrackets,
+    predicateFn: WithSingleChar(isCurlyBrackets),
     tokenizerFn: curlyBracketsTokenizer
   },
   {
-    predicateFn: isOperator,
+    predicateFn: isOperatorString,
     tokenizerFn: operatorTokenizer
   },
   {
-    predicateFn: isNumber,
+    predicateFn: WithSingleChar(isNumber),
     tokenizerFn: numberTokenizer
   },
   {
-    predicateFn: isLetter,
+    predicateFn: WithSingleChar(isLetter),
     tokenizerFn: letterTokenizer
   },
   {
-    predicateFn: isWhitespace,
+    predicateFn: WithSingleChar(isWhitespace),
     tokenizerFn: whitespaceTokenizer
   }
 ];

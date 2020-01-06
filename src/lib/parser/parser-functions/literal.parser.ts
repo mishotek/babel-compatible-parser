@@ -1,7 +1,7 @@
 import {ParserFn, PredicateFn} from "../types/parser.model";
 import {Token, TokenType} from "../../tokenizer/types/token.model";
 import {AstMetaData} from "../types/ast.model";
-import {Literal} from "../types/ast-expression.model";
+import {Literal} from "../types/ast-nodes.model";
 import R = require("ramda");
 import {defaultParser} from "./default.parser";
 

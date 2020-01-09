@@ -1,8 +1,7 @@
 import {EvaluatorFn, PredicateFn} from "../types/evaluator.model";
-import {AstNode, AstNodeType, BinaryExpression, Literal} from "../../parser/types/ast-nodes.model";
+import {AstNode, AstNodeType, BinaryExpression} from "../../parser/types/ast-nodes.model";
 import {Operators} from "../../helpers/operators";
 import {evaluate} from "../evaluate";
-import {coerceLiteral} from "../coercion/coerce-literal";
 import {toNumber} from "../coercion/to-number";
 
 export const mathOperationEvaluatorPredicate: PredicateFn = (node: AstNode) => {
@@ -17,20 +16,16 @@ export const mathOperationEvaluatorPredicate: PredicateFn = (node: AstNode) => {
 export const mathOperationEvaluator: EvaluatorFn = (node: AstNode) => {
     node = <BinaryExpression> node;
 
-    const left: Literal = coerceLiteral(toNumber)(<Literal> evaluate(node.left));
-    const right: Literal = coerceLiteral(toNumber)(<Literal> evaluate(node.right));
-
-    let result = NaN;
+    const left: number = toNumber(evaluate(node.left));
+    const right: number = toNumber(evaluate(node.right));
 
     if (node.operator === Operators.Add) {
-        result = <number> left.value + <number> right.value;
+        return left + right;
     } else if (node.operator === Operators.Subtract) {
-        result = <number> left.value - <number> right.value;
+        return left - right;
     } else if (node.operator === Operators.Multiply) {
-        result = <number> left.value * <number> right.value;
+        return left * right;
     } else if (node.operator === Operators.Divide) {
-        result = <number> left.value / <number> right.value;
+        return left / right;
     }
-
-    return new Literal(left.start, right.end, result, '' + result);
 };

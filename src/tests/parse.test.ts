@@ -686,7 +686,7 @@ test('Should parse simple constant variable declaration with binary operation', 
 });
 
 test('Should prioritize * and / operators', () => {
-        const tokens: Token[] = tokenize('1 + 2 * 3 + 4 / (1 / 2 - 1 / 2 * (12 - 8)) / 2 + 2 * 6;');
+    const tokens: Token[] = tokenize('1 + 2 * 3 + 4 / (1 / 2 - 1 / 2 * (12 - 8)) / 2 + 2 * 6;');
 
     const ast = {
         "type": "Program",

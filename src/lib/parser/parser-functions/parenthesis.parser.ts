@@ -6,7 +6,7 @@ import {__parse} from "../parser";
 import {AstNode, AstNodeType, EmptyNode, Parenthesis} from "../types/ast-nodes.model";
 import {Box} from "../../helpers/box";
 import {bottom, top} from "../../helpers/array-helpers";
-import {stripExpressionStatement} from "./expression-statment.parser";
+import {stripExpressionStatement} from "../helpers";
 
 export const parenthesisPredicate: PredicateFn = (tokens: Token[]) => {
     return tokens.length >= 0 && tokens[0].type === TokenType.Parenthesis && tokens[0].value === '(';
@@ -27,10 +27,3 @@ export const parenthesisParser: ParserFn = (tokens: Token[]) => {
     return new AstMetaData(new Parenthesis(firstToken.start - 1, lastToken.end + 1, astNode), remainingTokens);
 };
 
-export const stripParenthesis = (astNode: AstNode) => {
-    while (astNode && astNode.type === AstNodeType.Parenthesis) {
-        astNode = astNode.expression;
-    }
-
-    return astNode ? astNode : new EmptyNode();
-};

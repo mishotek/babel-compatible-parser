@@ -5,10 +5,10 @@ import {VariableDeclarationTypes} from "../types/variable-declaration";
 import {afterTheEndOfStatement, tillTheEndOfStatement} from "../../helpers/token-operations";
 import {AstNode, EmptyNode, Identifier, VariableDeclaration, VariableDeclarator} from "../types/ast-nodes.model";
 import {__parse} from "../parser";
-import {stripExpressionStatement} from "./expression-statment.parser";
 import {bottom, top} from "../../helpers/array-helpers";
 import {endsWithEndOfStatement} from "../../helpers/ends-with-end-of-statement";
 import {AstMetaData} from "../types/ast.model";
+import {stripExpressionStatement} from "../helpers";
 
 const isVariableDeclarationOperator = (token: Token) => {
     return token.type === TokenType.Operator && (token.value === Operators.VariableDeclaration || token.value === Operators.ConstantDeclaration);

@@ -5,11 +5,12 @@ import {AstNode, AstNodeType, EmptyNode, ExpressionStatement} from "../types/ast
 import {AstMetaData} from "../types/ast.model";
 import {binaryExpressionParser, binaryExpressionPredicate} from "./binary-expression.parser";
 import R = require("ramda");
-import {parenthesisPredicate, stripParenthesis} from "./parenthesis.parser";
+import {parenthesisPredicate} from "./parenthesis.parser";
 import {afterTheEndOfStatement, tillTheEndOfStatement} from "../../helpers/token-operations";
 import {__singleTurnParser} from "../parser";
 import {Operators} from "../../helpers/operators";
 import {endsWithEndOfStatement} from "../../helpers/ends-with-end-of-statement";
+import {stripParenthesis} from "../helpers";
 
 export const expressionStatementPredicate: PredicateFn = R.anyPass([
     binaryExpressionPredicate,
@@ -53,12 +54,4 @@ export const wrapInExpressionStatement: (node: AstNode, endsWithEndOfStatement: 
     const end = endsWithEndOfStatement ? node.end + 1 : node.end;
 
     return new ExpressionStatement(start, end, stripParenthesis(node));
-};
-
-export const stripExpressionStatement: (astNode: AstNode) => AstNode = (astNode: AstNode) => {
-    if (astNode.type === AstNodeType.ExpressionStatement) {
-        return astNode.expression;
-    }
-
-    return astNode;
 };

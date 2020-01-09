@@ -686,66 +686,183 @@ test('Should parse simple constant variable declaration with binary operation', 
 });
 
 test('Should prioritize * and / operators', () => {
-    const tokens: Token[] = tokenize('1 + 2 * 3 + 4;');
+        const tokens: Token[] = tokenize('1 + 2 * 3 + 4 / (1 / 2 - 1 / 2 * (12 - 8)) / 2 + 2 * 6;');
 
     const ast = {
         "type": "Program",
         "start": 0,
-        "end": 14,
+        "end": 55,
+        "sourceType": "module",
         "body": [
             {
                 "type": "ExpressionStatement",
                 "start": 0,
-                "end": 14,
+                "end": 55,
                 "expression": {
                     "type": "BinaryExpression",
                     "start": 0,
-                    "end": 13,
+                    "end": 54,
                     "left": {
                         "type": "BinaryExpression",
                         "start": 0,
-                        "end": 9,
+                        "end": 46,
                         "left": {
-                            "type": "Literal",
+                            "type": "BinaryExpression",
                             "start": 0,
-                            "end": 1,
-                            "value": 1,
-                            "raw": "1"
+                            "end": 9,
+                            "left": {
+                                "type": "Literal",
+                                "start": 0,
+                                "end": 1,
+                                "value": 1,
+                                "raw": "1"
+                            },
+                            "operator": "+",
+                            "right": {
+                                "type": "BinaryExpression",
+                                "start": 4,
+                                "end": 9,
+                                "left": {
+                                    "type": "Literal",
+                                    "start": 4,
+                                    "end": 5,
+                                    "value": 2,
+                                    "raw": "2"
+                                },
+                                "operator": "*",
+                                "right": {
+                                    "type": "Literal",
+                                    "start": 8,
+                                    "end": 9,
+                                    "value": 3,
+                                    "raw": "3"
+                                }
+                            }
                         },
                         "operator": "+",
                         "right": {
                             "type": "BinaryExpression",
-                            "start": 4,
-                            "end": 9,
+                            "start": 12,
+                            "end": 46,
                             "left": {
-                                "type": "Literal",
-                                "start": 4,
-                                "end": 5,
-                                "value": 2,
-                                "raw": "2"
+                                "type": "BinaryExpression",
+                                "start": 12,
+                                "end": 42,
+                                "left": {
+                                    "type": "Literal",
+                                    "start": 12,
+                                    "end": 13,
+                                    "value": 4,
+                                    "raw": "4"
+                                },
+                                "operator": "/",
+                                "right": {
+                                    "type": "BinaryExpression",
+                                    "start": 17,
+                                    "end": 41,
+                                    "left": {
+                                        "type": "BinaryExpression",
+                                        "start": 17,
+                                        "end": 22,
+                                        "left": {
+                                            "type": "Literal",
+                                            "start": 17,
+                                            "end": 18,
+                                            "value": 1,
+                                            "raw": "1",
+                                        },
+                                        "operator": "/",
+                                        "right": {
+                                            "type": "Literal",
+                                            "start": 21,
+                                            "end": 22,
+                                            "value": 2,
+                                            "raw": "2"
+                                        }
+                                    },
+                                    "operator": "-",
+                                    "right": {
+                                        "type": "BinaryExpression",
+                                        "start": 25,
+                                        "end": 41,
+                                        "left": {
+                                            "type": "BinaryExpression",
+                                            "start": 25,
+                                            "end": 30,
+                                            "left": {
+                                                "type": "Literal",
+                                                "start": 25,
+                                                "end": 26,
+                                                "value": 1,
+                                                "raw": "1"
+                                            },
+                                            "operator": "/",
+                                            "right": {
+                                                "type": "Literal",
+                                                "start": 29,
+                                                "end": 30,
+                                                "value": 2,
+                                                "raw": "2"
+                                            }
+                                        },
+                                        "operator": "*",
+                                        "right": {
+                                            "type": "BinaryExpression",
+                                            "start": 34,
+                                            "end": 40,
+                                            "left": {
+                                                "type": "Literal",
+                                                "start": 34,
+                                                "end": 36,
+                                                "value": 12,
+                                                "raw": "12",
+                                            },
+                                            "operator": "-",
+                                            "right": {
+                                                "type": "Literal",
+                                                "start": 39,
+                                                "end": 40,
+                                                "value": 8,
+                                                "raw": "8"
+                                            },
+                                        }
+                                    }
+                                }
                             },
-                            "operator": "*",
+                            "operator": "/",
                             "right": {
                                 "type": "Literal",
-                                "start": 8,
-                                "end": 9,
-                                "value": 3,
-                                "raw": "3"
+                                "start": 45,
+                                "end": 46,
+                                "value": 2,
+                                "raw": "2"
                             }
                         }
                     },
                     "operator": "+",
                     "right": {
-                        "type": "Literal",
-                        "start": 12,
-                        "end": 13,
-                        "value": 4,
-                        "raw": "4"
+                        "type": "BinaryExpression",
+                        "start": 49,
+                        "end": 54,
+                        "left": {
+                            "type": "Literal",
+                            "start": 49,
+                            "end": 50,
+                            "value": 2,
+                            "raw": "2"
+                        },
+                        "operator": "*",
+                        "right": {
+                            "type": "Literal",
+                            "start": 53,
+                            "end": 54,
+                            "value": 6,
+                            "raw": "6"
+                        }
                     }
                 }
             }
-        ],
-        "sourceType": "module"
+        ]
     };
 
     expect(parse(tokens)).toEqual(ast);

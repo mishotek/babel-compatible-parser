@@ -2,6 +2,8 @@ import {EvaluatorFn, PredicateFn} from "../types/evaluator.model";
 import {AstNode, AstNodeType, BinaryExpression, Literal} from "../../parser/types/ast-nodes.model";
 import {Operators} from "../../helpers/operators";
 import {evaluate} from "../evaluate";
+import {coerceLiteral} from "../coercion/coerce-literal";
+import {toNumber} from "../coercion/to-number";
 
 export const mathOperationEvaluatorPredicate: PredicateFn = (node: AstNode) => {
     return node.type === AstNodeType.BinaryExpression && (
@@ -15,8 +17,8 @@ export const mathOperationEvaluatorPredicate: PredicateFn = (node: AstNode) => {
 export const mathOperationEvaluator: EvaluatorFn = (node: AstNode) => {
     node = <BinaryExpression> node;
 
-    const left: Literal = <Literal> evaluate(node.left);
-    const right: Literal = <Literal> evaluate(node.right);
+    const left: Literal = coerceLiteral(toNumber)(<Literal> evaluate(node.left));
+    const right: Literal = coerceLiteral(toNumber)(<Literal> evaluate(node.right));
 
     let result = NaN;
 

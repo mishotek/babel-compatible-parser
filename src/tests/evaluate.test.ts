@@ -44,3 +44,10 @@ test('Should evaluate nested mathematical operations', () => {
 
     expect(evaluate(node)).toEqual(result);
 });
+
+test('Should evaluate addition between number and string', () => {
+    const node = parse(tokenize('2 + "3"')).body[0];
+    const result = new Literal(0, 7, NaN, 'NaN');
+
+    expect(evaluate(node)).toEqual(result);
+});

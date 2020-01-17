@@ -2,7 +2,7 @@ import {Token, TokenizerFn, TokenMetaData, TokenType} from "./types/token.model"
 import {isLetter, isNumber, isOperator, isQuote, isWhitespace} from "../helpers/identify";
 import * as R from "ramda";
 import {cutTillWhiteSpace} from "../helpers/split-string";
-import {OPERATORS} from "../helpers/operators";
+import {Operators, OPERATORS, SYMBOL_OPERATORS} from "../helpers/operators";
 
 export const whitespaceTokenizer: TokenizerFn = (input, cursor) => {
   return new TokenMetaData(Token.NullToken, cursor + 1);
@@ -65,16 +65,16 @@ export const stringTokenizer: TokenizerFn = (input, cursor) => {
 
 export const operatorTokenizer: TokenizerFn = (input, cursor) => {
   const start = cursor;
+  const fromStart = input.slice(cursor);
 
-  let operator = '';
+  console.log(fromStart);
+  const operator = OPERATORS.find(matchesOperator(fromStart));
 
-  while (cursor < input.length && !isWhitespace(input[cursor])) {
-    operator += input[cursor++];
+  if (!operator) {
+    throw new SyntaxError(`Unsupported operator starting at: ${cursor} (${fromStart.slice(0, 6)}...)`);
   }
 
-  if (!isOperator(operator)) {
-    throw new SyntaxError(`Unsupported operator: ${operator}`);
-  }
+  cursor += operator.length;
 
   return new TokenMetaData(new Token(TokenType.Operator, operator, start, cursor), cursor);
 };
@@ -84,12 +84,17 @@ export const defaultTokenizer: TokenizerFn = (input, cursor) => {
 };
 
 export const isOperatorString = (str: string) => {
-  return OPERATORS.some(operator => {
-    const startsWithOperator = str.indexOf(operator) === 0;
-    const isNotFollowedByLetter = !isLetter(str[operator.length]);
+  return OPERATORS.some(matchesOperator(str));
+};
 
-    return startsWithOperator && isNotFollowedByLetter;
-  });
+export const matchesOperator = (strToMatch: string) => (operator: string) => {
+  const startsWithOperator = strToMatch.indexOf(operator) === 0;
+  const isNotFollowedByLetter = !isLetter(strToMatch[operator.length]);
+  const isSymbolOperator = SYMBOL_OPERATORS.includes(operator);
+
+  console.log(strToMatch, operator);
+
+  return startsWithOperator && (isNotFollowedByLetter || isSymbolOperator);
 };
 
 export const WithSingleChar = (fn: (char: string) => boolean) => (str: string) => fn(str[0]);

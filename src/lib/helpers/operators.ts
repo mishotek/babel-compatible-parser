@@ -12,7 +12,9 @@ export class Operators {
     public static readonly Divide = '/';
 }
 
-export const OPERATORS = ['=', '>', '<', '=>', '+', '-', '*', '/', ';', 'const', 'var'];
+// Operators should be ordered by their length (longest first)
+export const SYMBOL_OPERATORS = ['=>', '=', '>', '<', '+', '-', '*', '/'];
+export const OPERATORS = ['const', 'var', '=>', '=', '>', '<', '+', '-', '*', '/', ';'];
 
 export const BinaryExpressions: Operators[] = [
     Operators.Add,

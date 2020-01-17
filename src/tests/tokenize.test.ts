@@ -83,6 +83,46 @@ test('Should correctly tokenize single digit', () => {
     expect(tokenize(input)).toEqual(result);
 });
 
+test('Should correctly tokenize negative digit', () => {
+    const input = '-1';
+    const result: Token[] = [
+        {
+            type: TokenType.Operator,
+            value: '-',
+            start: 0,
+            end: 1,
+        },
+        {
+            type: TokenType.Number,
+            value: '1',
+            start: 1,
+            end: 2,
+        },
+    ];
+
+    expect(tokenize(input)).toEqual(result);
+});
+
+test('Should correctly tokenize negative name', () => {
+    const input = '-myVar';
+    const result: Token[] = [
+        {
+            type: TokenType.Operator,
+            value: '-',
+            start: 0,
+            end: 1,
+        },
+        {
+            type: TokenType.Name,
+            value: 'myVar',
+            start: 1,
+            end: 6,
+        },
+    ];
+
+    expect(tokenize(input)).toEqual(result);
+});
+
 test('Should correctly tokenize multiple single digits', () => {
     const input = '(2 6)';
     const result: Token[] = [
@@ -401,11 +441,6 @@ test('Should correctly tokenize lambda function operator', () => {
 
 test('Should not parse invalid number', () => {
     const input = '(fn 12abc 12 "YEY")';
-    expect(() => tokenize(input)).toThrowError(SyntaxError);
-});
-
-test('Should not parse invalid operator', () => {
-    const input = 'arg =?> myFn(arg)';
     expect(() => tokenize(input)).toThrowError(SyntaxError);
 });
 

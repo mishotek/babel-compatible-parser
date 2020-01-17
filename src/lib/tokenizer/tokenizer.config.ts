@@ -2,19 +2,23 @@ import {TokenizerConfig} from "./types/token.model";
 import {
   isCurlyBrackets,
   isLetter,
-  isNumber, isOperator,
+  isNumber,
   isParenthesis,
   isQuote,
   isSquareBracket,
   isWhitespace
 } from "../helpers/identify";
 import {
-  curlyBracketsTokenizer, isOperatorString,
+  curlyBracketsTokenizer,
+  isOperatorString,
   letterTokenizer,
-  numberTokenizer, operatorTokenizer,
+  numberTokenizer,
+  operatorTokenizer,
   parenthesisTokenizer,
   squareBracketsTokenizer,
-  stringTokenizer, whitespaceTokenizer, WithSingleChar
+  stringTokenizer,
+  whitespaceTokenizer,
+  WithSingleChar
 } from "./tokenizer-functions";
 
 export const tokenizerConfig: TokenizerConfig[] = [

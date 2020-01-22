@@ -51,3 +51,10 @@ test('Should evaluate addition between number and string', () => {
 
     expect(evaluate(node)).toEqual(result);
 });
+
+test('Should evaluate multiplication between number and negative number', () => {
+    const node = parse(tokenize('2 * -5')).body[0];
+    const result = -10;
+
+    expect(evaluate(node)).toEqual(result);
+});

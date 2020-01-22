@@ -67,7 +67,6 @@ export const operatorTokenizer: TokenizerFn = (input, cursor) => {
   const start = cursor;
   const fromStart = input.slice(cursor);
 
-  console.log(fromStart);
   const operator = OPERATORS.find(matchesOperator(fromStart));
 
   if (!operator) {
@@ -91,8 +90,6 @@ export const matchesOperator = (strToMatch: string) => (operator: string) => {
   const startsWithOperator = strToMatch.indexOf(operator) === 0;
   const isNotFollowedByLetter = !isLetter(strToMatch[operator.length]);
   const isSymbolOperator = SYMBOL_OPERATORS.includes(operator);
-
-  console.log(strToMatch, operator);
 
   return startsWithOperator && (isNotFollowedByLetter || isSymbolOperator);
 };

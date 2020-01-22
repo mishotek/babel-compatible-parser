@@ -22,3 +22,8 @@ export const BinaryExpressions: Operators[] = [
     Operators.Multiply,
     Operators.Divide,
 ];
+
+export const UnaryExpressions: Operators[] = [
+    Operators.Add,
+    Operators.Subtract,
+];

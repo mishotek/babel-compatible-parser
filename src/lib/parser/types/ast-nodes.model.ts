@@ -5,6 +5,7 @@ export enum AstNodeType {
     ExpressionStatement = 'ExpressionStatement',
     Literal = 'Literal',
     Identifier = 'Identifier',
+    UnaryExpression = 'UnaryExpression',
     BinaryExpression = 'BinaryExpression',
     EmptyNode = 'EmptyNode',
     Parenthesis = 'Parenthesis',
@@ -58,6 +59,14 @@ export class Parenthesis implements OfAstNodeType {
 
 }
 
+export class UnaryExpression implements OfAstNodeType {
+
+    public readonly type = AstNodeType.UnaryExpression;
+
+    constructor(public start: number, public end: number, public operator: Operators, public argument: AstNode) { }
+
+}
+
 export class BinaryExpression implements OfAstNodeType {
 
     public readonly type = AstNodeType.BinaryExpression;
@@ -89,4 +98,5 @@ export type AstNode = EmptyNode |
     Parenthesis |
     BinaryExpression |
     Literal |
-    Identifier;
+    Identifier |
+    UnaryExpression;

@@ -6,6 +6,10 @@ import {
     expressionStatementEvaluatorFn,
     expressionStatementEvaluatorPredicate
 } from "./evaluation-functions/expression-statement.evaluator";
+import {
+    unaryExpressionEvaluator,
+    unaryExpressionEvaluatorPredicate
+} from "./evaluation-functions/unary-expression.evaluator";
 
 export const evaluatorConfig : EvaluatorConfig[] = [
     {
@@ -19,5 +23,9 @@ export const evaluatorConfig : EvaluatorConfig[] = [
     {
         predicateFn: mathOperationEvaluatorPredicate,
         evaluatorFn: mathOperationEvaluator
+    },
+    {
+        predicateFn: unaryExpressionEvaluatorPredicate,
+        evaluatorFn: unaryExpressionEvaluator
     }
 ];

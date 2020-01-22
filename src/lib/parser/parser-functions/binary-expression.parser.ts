@@ -1,6 +1,6 @@
 import {ParserFnWithLeftNode, PredicateFn} from "../types/parser.model";
 import {Token, TokenType} from "../../tokenizer/types/token.model";
-import {AstNode, AstNodeType, BinaryExpression} from "../types/ast-nodes.model";
+import {AstNode, AstNodeType, BinaryExpression, UnaryExpression} from "../types/ast-nodes.model";
 import {BinaryExpressions, Operators} from "../../helpers/operators";
 import {AstMetaData} from "../types/ast.model";
 import {__singleTurnParser} from "../parser";
@@ -9,6 +9,10 @@ import {stripStructuralNodes} from "../helpers";
 export const binaryExpressionPredicate: PredicateFn = (tokens: Token[]) => {
     return tokens.length >= 2 && tokens[0].type === TokenType.Operator && BinaryExpressions.includes(tokens[0].value);
 };
+
+// export const needsConversionToBinaryExpression = (leftNode: AstNode, unaryExpression: UnaryExpression) => {
+//
+// };
 
 const nodeIsBinaryExpression = (node: AstNode) => node.type === AstNodeType.BinaryExpression;
 
@@ -20,7 +24,6 @@ const newOperatorHasHigherPriority = (operator1: Operators, operator2: Operators
 };
 
 const withSwappedLeaves = (leftNode: BinaryExpression, operator: Operators, rightNode: AstNode) => {
-    const rightNodeStart = rightNode.start;
     const rightNodeEnd = rightNode.end;
 
     rightNode = stripStructuralNodes(rightNode);

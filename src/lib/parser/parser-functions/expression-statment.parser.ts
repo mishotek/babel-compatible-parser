@@ -4,13 +4,12 @@ import {literalPredicate} from "./literal.parser";
 import {AstNode, AstNodeType, EmptyNode, ExpressionStatement} from "../types/ast-nodes.model";
 import {AstMetaData} from "../types/ast.model";
 import {binaryExpressionParser, binaryExpressionPredicate} from "./binary-expression.parser";
-import R = require("ramda");
 import {parenthesisPredicate} from "./parenthesis.parser";
 import {afterTheEndOfStatement, tillTheEndOfStatement} from "../../helpers/token-operations";
 import {__singleTurnParser} from "../parser";
-import {Operators} from "../../helpers/operators";
 import {endsWithEndOfStatement} from "../../helpers/ends-with-end-of-statement";
 import {stripParenthesis} from "../helpers";
+import R = require("ramda");
 
 export const expressionStatementPredicate: PredicateFn = R.anyPass([
     binaryExpressionPredicate,
@@ -19,7 +18,7 @@ export const expressionStatementPredicate: PredicateFn = R.anyPass([
 ]);
 
 const oneTurnParsing: (tokens: Token[], recentNode: AstNode) => AstMetaData = (tokens: Token[], recentNode: AstNode) => {
-    if (binaryExpressionPredicate(tokens)) {
+    if (binaryExpressionPredicate(tokens) && recentNode.type !== AstNodeType.EmptyNode) {
         return binaryExpressionParser(tokens, recentNode);
     }
 

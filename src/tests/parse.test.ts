@@ -867,3 +867,84 @@ test('Should prioritize * and / operators', () => {
 
     expect(parse(tokens)).toEqual(ast);
 });
+
+test('Should parse -1 as unary expresion', () => {
+    const tokens: Token[] = tokenize('-1');
+
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 2,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 2,
+                "expression": {
+                    "type": "UnaryExpression",
+                    "start": 0,
+                    "end": 2,
+                    "operator": "-",
+                    "argument": {
+                        "type": "Literal",
+                        "start": 1,
+                        "end": 2,
+                        "value": 1,
+                        "raw": "1"
+                    },
+                }
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
+test('Should parse unary expresion in binary expression', () => {
+    const tokens: Token[] = tokenize('1 + -10');
+
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 7,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 7,
+                "expression": {
+                    "type": "BinaryExpression",
+                    "start": 0,
+                    "end": 7,
+                    "left": {
+                        "type": "Literal",
+                        "start": 0,
+                        "end": 1,
+                        "value": 1,
+                        "raw": "1"
+                    },
+                    "operator": "+",
+                    "right": {
+                        "type": "UnaryExpression",
+                        "start": 4,
+                        "end": 7,
+                        "operator": "-",
+                        "argument": {
+                            "type": "Literal",
+                            "start": 5,
+                            "end": 7,
+                            "value": 10,
+                            "raw": "10"
+                        },
+                    }
+                }
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
+

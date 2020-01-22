@@ -51,5 +51,5 @@ export const tokensInParenthesis: (tokens: Token[]) => Token[] = (tokens: Token[
         tokensInside.push(token);
     }
 
-    throw new Error('Not enough closing parenthesis!');
+    throw new SyntaxError(`Not enough closing parenthesis starting at ${tokens[0].start}`);
 };

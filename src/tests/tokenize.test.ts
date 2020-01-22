@@ -1,5 +1,6 @@
 import {tokenize} from "../lib/tokenizer/tokenizer";
 import {Token, TokenType} from "../lib/tokenizer/types/token.model";
+import {operatorTokenizer} from "../lib/tokenizer/tokenizer-functions";
 
 test('Should return an array', () => {
    expect(Array.isArray(tokenize(''))).toBe(true);
@@ -447,4 +448,9 @@ test('Should not parse invalid number', () => {
 test('Should not recognize non ASCII character at the beginning', () => {
     const input = 'აბა თუ გაპარსავ?';
     expect(() => tokenize(input)).toThrowError(TypeError);
+});
+
+test('Should not parse nonexisting operator', () => {
+    const input = 'a';
+    expect(() => operatorTokenizer(input, 0)).toThrowError(SyntaxError);
 });

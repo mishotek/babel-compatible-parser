@@ -1,4 +1,4 @@
-import {Literal} from "../lib/parser/types/ast-nodes.model";
+import {AstNode, Literal} from "../lib/parser/types/ast-nodes.model";
 import {evaluate} from "../lib/evaluate/evaluate";
 import {parse} from "../lib/parser/parser";
 import {tokenize} from "../lib/tokenizer/tokenizer";
@@ -59,6 +59,13 @@ test('Should evaluate multiplication between number and negative number', () => 
     expect(evaluate(node)).toEqual(result);
 });
 
+test('Should evaluate division between number and unary operator', () => {
+    const node = parse(tokenize('4 / +2')).body[0];
+    const result = 2;
+
+    expect(evaluate(node)).toEqual(result);
+});
+
 test('Should evaluate division by zero correctly', () => {
     const node = parse(tokenize('100 / 0')).body[0];
     const result = NaN;
@@ -73,9 +80,21 @@ test('Should evaluate string concatenation correctly', () => {
     expect(evaluate(node)).toEqual(result);
 });
 
+test('Should evaluate string and number concatenation correctly', () => {
+    const node = parse(tokenize('"string and number: " + " " + 69')).body[0];
+    const result = "string and number:  69";
+
+    expect(evaluate(node)).toEqual(result);
+});
+
 test('Should throw error for unsupported string operator', () => {
     const node = parse(tokenize('"12" - 10')).body[0];
-    const result = "hello world";
 
     expect(() => evaluate(node)).toThrowError(SyntaxError);
+});
+
+test('Default evaluator Should throw error', () => {
+    const node = {type: 'unknownRandomType', start: 0, end: 1};
+
+    expect(() => evaluate(<AstNode> node)).toThrowError(SyntaxError);
 });

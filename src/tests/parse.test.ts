@@ -1,6 +1,11 @@
 import {Token, TokenType} from "../lib/tokenizer/types/token.model";
 import {parse} from "../lib/parser/parser";
 import {tokenize} from "../lib/tokenizer/tokenizer";
+import {defaultParser} from "../lib/parser/parser-functions/default.parser";
+import {EmptyNode, ExpressionStatement} from "../lib/parser/types/ast-nodes.model";
+import {wrapInExpressionStatement} from "../lib/parser/parser-functions/expression-statment.parser";
+import {literalParser} from "../lib/parser/parser-functions/literal.parser";
+import {tokensInParenthesis} from "../lib/helpers/token-operations";
 
 test('Should parse numerical literal', () => {
     const tokens: Token[] = [ new Token(TokenType.Number, '2', 0, 1) ];
@@ -973,4 +978,70 @@ test('Should parse unary expresion in binary expression', () => {
     expect(parse(tokens)).toEqual(ast);
 });
 
+test('Should call default parser for incorrect token', () => {
+    const input = [{type: 'incorrectType', start: 0, end: 9, value: 'Incorrect'}];
 
+    expect(() => parse(<Token[]> input)).toThrowError(TypeError);
+});
+
+test('Expression statement wrapper test', () => {
+    const expressionStatement: ExpressionStatement = new ExpressionStatement(0, 1, new EmptyNode());
+
+    expect(wrapInExpressionStatement(expressionStatement, false)).toBe(expressionStatement);
+});
+
+test('Literal parser with incorrect token should throw error', () => {
+    const tokens = [{type: 'incorrectType', start: 0, end: 9, value: 'Incorrect'}];
+
+    expect(() => literalParser(<Token[]> tokens)).toThrowError(TypeError);
+});
+
+test('Variable declaration with no assignment', () => {
+    const tokens: Token[] = tokenize('var myVar;');
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 10,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "VariableDeclaration",
+                "start": 0,
+                "end": 10,
+                "declarations": [
+                    {
+                        "type": "VariableDeclarator",
+                        "start": 4,
+                        "end": 9,
+                        "id": {
+                            "type": "Identifier",
+                            "start": 4,
+                            "end": 9,
+                            "name": "myVar"
+                        },
+                        "init": {
+                            "end": NaN,
+                            "start": NaN,
+                            "type": "EmptyNode"
+                        },
+                    }
+                ],
+                "kind": "var"
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
+test('Parse tokens without enough parenthesis', () => {
+    const tokens: Token[] = tokenize('(1 + 2;');
+
+    expect(() => parse(tokens)).toThrowError(SyntaxError);
+});
+
+test('Get tokens inside of parenthesis that don\'t have parenthesis', () => {
+   const tokens: Token[] = tokenize('1');
+
+    expect(tokensInParenthesis(tokens).length).toBe(0);
+});

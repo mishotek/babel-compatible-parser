@@ -65,3 +65,17 @@ test('Should evaluate division by zero correctly', () => {
 
     expect(evaluate(node)).toEqual(result);
 });
+
+test('Should evaluate string concatenation correctly', () => {
+    const node = parse(tokenize('"hello" + " " + "world"')).body[0];
+    const result = "hello world";
+
+    expect(evaluate(node)).toEqual(result);
+});
+
+test('Should throw error for unsupported string operator', () => {
+    const node = parse(tokenize('"12" - 10')).body[0];
+    const result = "hello world";
+
+    expect(() => evaluate(node)).toThrowError(SyntaxError);
+});

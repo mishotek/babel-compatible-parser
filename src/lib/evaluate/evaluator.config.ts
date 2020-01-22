@@ -1,7 +1,5 @@
 import {EvaluatorConfig} from "./types/evaluator.model";
 import {literalEvaluatorFn, literalEvaluatorPredicate} from "./evaluation-functions/literal.evaluator";
-import {mathOperationEvaluator, mathOperationEvaluatorPredicate} from "./evaluation-functions/math-operation.evaluator";
-import {expressionStatementPredicate} from "../parser/parser-functions/expression-statment.parser";
 import {
     expressionStatementEvaluatorFn,
     expressionStatementEvaluatorPredicate
@@ -10,6 +8,10 @@ import {
     unaryExpressionEvaluator,
     unaryExpressionEvaluatorPredicate
 } from "./evaluation-functions/unary-expression.evaluator";
+import {
+    binaryExpressionEvaluator,
+    binaryExpressionEvaluatorPredicate
+} from "./evaluation-functions/binary-expression/binary-expression.evaluator";
 
 export const evaluatorConfig : EvaluatorConfig[] = [
     {
@@ -21,8 +23,8 @@ export const evaluatorConfig : EvaluatorConfig[] = [
         evaluatorFn: expressionStatementEvaluatorFn
     },
     {
-        predicateFn: mathOperationEvaluatorPredicate,
-        evaluatorFn: mathOperationEvaluator
+        predicateFn: binaryExpressionEvaluatorPredicate,
+        evaluatorFn: binaryExpressionEvaluator
     },
     {
         predicateFn: unaryExpressionEvaluatorPredicate,

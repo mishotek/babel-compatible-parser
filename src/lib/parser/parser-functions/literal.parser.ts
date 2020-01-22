@@ -6,7 +6,11 @@ import R = require("ramda");
 import {defaultParser} from "./default.parser";
 
 const numericalLiteralPredicate: PredicateFn = (tokens: Token[]) => {
-    return tokens.length > 0 && tokens[0].type === TokenType.Number
+    const hasTokens = tokens.length > 0;
+    const isNumber = hasTokens && tokens[0].type === TokenType.Number;
+    const isNaNLiteral = hasTokens && tokens[0].type === TokenType.Name && tokens[0].value === 'NaN';
+
+    return isNumber || isNaNLiteral;
 };
 
 const numericalLiteralParser: ParserFn = (tokens: Token[]) => {

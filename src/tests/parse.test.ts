@@ -28,6 +28,32 @@ test('Should parse numerical literal', () => {
     expect(parse(tokens)).toEqual(ast);
 });
 
+test('Should parse NaN as literal', () => {
+    const tokens: Token[] = tokenize('NaN');
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 3,
+        "body": [
+            {
+                "type": "ExpressionStatement",
+                "start": 0,
+                "end": 3,
+                "expression": {
+                    "type": "Literal",
+                    "start": 0,
+                    "end": 3,
+                    "value": NaN,
+                    "raw": "NaN"
+                }
+            }
+        ],
+        "sourceType": "module"
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
 test('Should parse string literal', () => {
     const tokens: Token[] = [ new Token(TokenType.String, 'string with space', 0, 19) ];
     const ast = {

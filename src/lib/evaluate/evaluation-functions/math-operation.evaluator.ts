@@ -26,6 +26,6 @@ export const mathOperationEvaluator: EvaluatorFn = (node: AstNode) => {
     } else if (node.operator === Operators.Multiply) {
         return left * right;
     } else if (node.operator === Operators.Divide) {
-        return left / right;
+        return right === 0 ? NaN : left / right;
     }
 };

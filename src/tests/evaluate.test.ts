@@ -58,3 +58,10 @@ test('Should evaluate multiplication between number and negative number', () => 
 
     expect(evaluate(node)).toEqual(result);
 });
+
+test('Should evaluate division by zero correctly', () => {
+    const node = parse(tokenize('100 / 0')).body[0];
+    const result = NaN;
+
+    expect(evaluate(node)).toEqual(result);
+});

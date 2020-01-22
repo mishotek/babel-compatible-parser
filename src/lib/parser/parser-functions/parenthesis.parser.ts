@@ -4,7 +4,7 @@ import {tokensInParenthesis} from "../../helpers/token-operations";
 import {AstMetaData} from "../types/ast.model";
 import {__parse} from "../parser";
 import {AstNode, AstNodeType, EmptyNode, Parenthesis} from "../types/ast-nodes.model";
-import {Box} from "../../helpers/box";
+import {Box} from "../../helpers/monads/box";
 import {bottom, top} from "../../helpers/array-helpers";
 import {stripExpressionStatement} from "../helpers";
 

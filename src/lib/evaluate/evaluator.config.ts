@@ -16,6 +16,10 @@ import {
     variableDeclarationEvaluator,
     variableDeclarationEvaluatorPredicate
 } from "./evaluation-functions/variable-declaration.evaluator";
+import {
+    emptyNodeEvaluatorFn,
+    emptyNodeEvaluatorPredicate,
+} from "./evaluation-functions/empty-node.evaluator";
 
 export const evaluatorConfig : EvaluatorConfig[] = [
     {
@@ -37,5 +41,9 @@ export const evaluatorConfig : EvaluatorConfig[] = [
     {
         predicateFn: variableDeclarationEvaluatorPredicate,
         evaluatorFn: variableDeclarationEvaluator
+    },
+    {
+        predicateFn: emptyNodeEvaluatorPredicate,
+        evaluatorFn: emptyNodeEvaluatorFn
     },
 ];

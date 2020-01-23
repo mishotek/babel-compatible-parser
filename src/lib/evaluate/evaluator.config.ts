@@ -12,6 +12,10 @@ import {
     binaryExpressionEvaluator,
     binaryExpressionEvaluatorPredicate
 } from "./evaluation-functions/binary-expression/binary-expression.evaluator";
+import {
+    variableDeclarationEvaluator,
+    variableDeclarationEvaluatorPredicate
+} from "./evaluation-functions/variable-declaration.evaluator";
 
 export const evaluatorConfig : EvaluatorConfig[] = [
     {
@@ -29,5 +33,9 @@ export const evaluatorConfig : EvaluatorConfig[] = [
     {
         predicateFn: unaryExpressionEvaluatorPredicate,
         evaluatorFn: unaryExpressionEvaluator
-    }
+    },
+    {
+        predicateFn: variableDeclarationEvaluatorPredicate,
+        evaluatorFn: variableDeclarationEvaluator
+    },
 ];

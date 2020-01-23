@@ -1,7 +1,6 @@
 import {Token, TokenType} from "../lib/tokenizer/types/token.model";
 import {parse} from "../lib/parser/parser";
 import {tokenize} from "../lib/tokenizer/tokenizer";
-import {defaultParser} from "../lib/parser/parser-functions/default.parser";
 import {EmptyNode, ExpressionStatement} from "../lib/parser/types/ast-nodes.model";
 import {wrapInExpressionStatement} from "../lib/parser/parser-functions/expression-statment.parser";
 import {literalParser} from "../lib/parser/parser-functions/literal.parser";

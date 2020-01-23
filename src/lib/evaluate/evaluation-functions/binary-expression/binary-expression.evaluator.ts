@@ -3,16 +3,17 @@ import {AstNode, AstNodeType, BinaryExpression} from "../../../parser/types/ast-
 import {evaluate} from "../../evaluate";
 import {stringOperationEvaluator} from "./string-operaion.evaluator";
 import {mathOperationEvaluator} from "./math-operation.evaluator";
+import {Scope} from "../../../scope/scope.model";
 
 export const binaryExpressionEvaluatorPredicate: PredicateFn = (node: AstNode) => {
     return node.type === AstNodeType.BinaryExpression;
 };
 
-export const binaryExpressionEvaluator: EvaluatorFn = (node: AstNode) => {
+export const binaryExpressionEvaluator: EvaluatorFn = (node: AstNode, scope: Scope) => {
     node = <BinaryExpression> node;
 
-    const left = evaluate(node.left);
-    const right = evaluate(node.right);
+    const left = evaluate(node.left, scope);
+    const right = evaluate(node.right, scope);
 
     const isStringOperation = typeof left === "string";
 

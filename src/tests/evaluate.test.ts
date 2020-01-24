@@ -1,8 +1,9 @@
-import {AstNode, Literal} from "../lib/parser/types/ast-nodes.model";
+import {AstNode, AstNodeType, Identifier, Literal} from "../lib/parser/types/ast-nodes.model";
 import {evaluate} from "../lib/evaluate/evaluate";
 import {parse} from "../lib/parser/parser";
 import {tokenize} from "../lib/tokenizer/tokenizer";
 import {RootScope} from "../lib/scope/root.scope";
+import {getFromScope} from "../lib/scope/getters.scope";
 
 test('Should evaluate literal', () => {
     const node = new Literal(0, 1, 1, '1');
@@ -98,4 +99,29 @@ test('Default evaluator Should throw error', () => {
     const node = {type: 'unknownRandomType', start: 0, end: 1};
 
     expect(() => evaluate(<AstNode> node, RootScope)).toThrowError(SyntaxError);
+});
+
+test('Should throw undeclared variable error', () => {
+    const node = new Identifier(0, 1, 'unknownVariable');
+
+    expect(() => evaluate(<AstNode> node, RootScope)).toThrowError(Error);
+});
+
+test('Should throw error when redeclaring a variable', () => {
+    const node = parse(tokenize('var a = 0;')).body[0];
+
+    const scope = {...RootScope};
+    evaluate(<AstNode> node, scope);
+
+    expect(() => evaluate(<AstNode> node, scope)).toThrowError(Error);
+});
+
+test('Should return pi from scope', () => {
+    const node = parse(tokenize('PI')).body[0];
+
+    expect(evaluate(<AstNode> node, RootScope)).toBe(Math.PI);
+});
+
+test('Should return undefined when scope is undefined', () => {
+    expect(getFromScope(undefined)('randomKey')).toBe(undefined);
 });

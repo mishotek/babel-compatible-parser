@@ -16,7 +16,7 @@ export const variableDeclarationEvaluator: EvaluatorFn = (node: AstNode, scope: 
         const alreadyDeclared = isInScope(scope)(declaration.id.name);
 
         if (alreadyDeclared) {
-            throw new SyntaxError(`Variable ${declaration.id.name} is already declared`);
+            throw new Error(`Variable ${declaration.id.name} is already declared`);
         }
 
         const variable = new Variable(evaluate(declaration.init, scope), (<VariableDeclaration> node).kind);

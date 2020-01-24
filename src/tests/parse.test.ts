@@ -1044,3 +1044,41 @@ test('Get tokens inside of parenthesis that don\'t have parenthesis', () => {
 
     expect(tokensInParenthesis(tokens).length).toBe(0);
 });
+
+test('', () => {
+    const tokens: Token[] = tokenize('myVar + 2;');
+    const ast = {
+            "type": "Program",
+            "start": 0,
+            "end": 10,
+            "sourceType": "module",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "start": 0,
+                    "end": 10,
+                    "expression": {
+                        "type": "BinaryExpression",
+                        "start": 0,
+                        "end": 9,
+                        "left": {
+                            "type": "Identifier",
+                            "start": 0,
+                            "end": 5,
+                            "name": "myVar"
+                        },
+                        "operator": "+",
+                        "right": {
+                            "type": "Literal",
+                            "start": 8,
+                            "end": 9,
+                            "value": 2,
+                            "raw": "2"
+                        }
+                    }
+                }
+            ]
+        };
+
+    expect(parse(tokens)).toEqual(ast);
+});

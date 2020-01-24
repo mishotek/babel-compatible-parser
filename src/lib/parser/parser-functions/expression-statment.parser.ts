@@ -10,11 +10,13 @@ import {__singleTurnParser} from "../parser";
 import {endsWithEndOfStatement} from "../../helpers/ends-with-end-of-statement";
 import {stripParenthesis} from "../helpers";
 import R = require("ramda");
+import {identifierPredicate} from "./identifier.parser";
 
 export const expressionStatementPredicate: PredicateFn = R.anyPass([
     binaryExpressionPredicate,
     literalPredicate,
-    parenthesisPredicate
+    parenthesisPredicate,
+    identifierPredicate
 ]);
 
 const oneTurnParsing: (tokens: Token[], recentNode: AstNode) => AstMetaData = (tokens: Token[], recentNode: AstNode) => {

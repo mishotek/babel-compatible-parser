@@ -4,6 +4,7 @@ import {expressionStatementParser, expressionStatementPredicate} from "./parser-
 import {parenthesisParser, parenthesisPredicate} from "./parser-functions/parenthesis.parser";
 import {variableDeclarationParser, variableDeclarationPredicate} from "./parser-functions/variable-declaration.parser";
 import {unaryExpressionParser, unaryExpressionPredicate} from "./parser-functions/unary-expression.parser";
+import {identifierParser, identifierPredicate} from "./parser-functions/identifier.parser";
 
 export const parserConfig: ParserConfig[] = [
     {
@@ -25,5 +26,9 @@ export const parserConfig: ParserConfig[] = [
     {
         predicateFn: literalPredicate,
         parserFn: literalParser
+    },
+    {
+        predicateFn: identifierPredicate,
+        parserFn: identifierParser
     },
 ];

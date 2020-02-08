@@ -1,6 +1,6 @@
 export class Stack<T> {
 
-    private items: Array<T> = [];
+    constructor(private items: Array<T> = []) { }
 
     public get length(): number {
         return this.items.length;

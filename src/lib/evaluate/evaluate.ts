@@ -2,10 +2,10 @@ import {AstNode} from "../parser/types/ast-nodes.model";
 import {EvaluatorConfig, EvaluatorFn} from "./types/evaluator.model";
 import {evaluatorConfig} from "./evaluator.config";
 import {defaultEvaluator} from "./evaluation-functions/default.evaluator";
-import {Scope} from "../scope/scope.model";
+import {ScopeManager} from "../execute/scope-manager/scope-manager";
 
-export const evaluate = (node: AstNode, scope: Scope) => {
-    return getEvaluatorFn(node)(node, scope);
+export const evaluate = (node: AstNode, scopeManager: ScopeManager) => {
+    return getEvaluatorFn(node)(node, scopeManager);
 };
 
 const getEvaluatorFn: (tokens: AstNode) => EvaluatorFn = (node: AstNode) => {

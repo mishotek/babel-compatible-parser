@@ -12,7 +12,7 @@
 ### Variable declaration
 ```javascript
 const myVariable = 12;
-let myVariable = 12;
+var myVariable = 12;
 ```
 
 ### Function declaration

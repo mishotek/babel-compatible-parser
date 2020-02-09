@@ -1,5 +1,6 @@
 import {ExecutionContext, Variable} from "../lib/execute/execution-context/execution-context.model";
 import {VariableDeclarationTypes} from "../lib/parser/types/variable-declaration";
+import {ScopeManager} from "../lib/execute/scope-manager/scope-manager";
 
 test('New variable should have value of undefined', () => {
     const variable = new Variable('myVar', VariableDeclarationTypes.Var);
@@ -77,4 +78,23 @@ test('Should get value from current execution context instead of parent', () => 
     ec2.setVariable('myVar', 21);
 
     expect(ec2.getVariable('myVar').value).toEqual(21);
+});
+
+test('Should not be able to leave the global scope', () => {
+   expect(() => new ScopeManager().leave()).toThrowError(Error);
+});
+
+test('Should be in global scope after entering and leaving scope', () => {
+    const scopeManager = new ScopeManager();
+    scopeManager.enter();
+    scopeManager.leave();
+
+    expect(scopeManager.isInGlobalScope).toBe(true);
+});
+
+test('Should be able to get variables from current scope', () => {
+    const scopeManager = new ScopeManager();
+    scopeManager.enter();
+
+    expect(scopeManager.currentExecutionContext.getVariable('PI').value).toEqual(Math.PI);
 });

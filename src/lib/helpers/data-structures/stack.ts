@@ -20,7 +20,7 @@ export class Stack<T> {
 
     public pop(): T {
         const top = this.top();
-        this.items = this.items.slice(0, this.length - 2);
+        this.items = this.items.slice(0, this.length - 1);
 
         return top;
     }

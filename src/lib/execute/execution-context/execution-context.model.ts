@@ -3,11 +3,15 @@ import {VariableDeclarationTypes} from "../../parser/types/variable-declaration"
 export class Variable {
 
     private dirty = false;
-    public value = undefined;
+    public _value = undefined;
 
     constructor(public name: string, public kind: VariableDeclarationTypes) { }
 
-    public setValue(value: any): void {
+    public get value(): any {
+        return this._value;
+    }
+
+    public set value(value: any) {
         const tryingToResetConst = this.dirty && this.kind === VariableDeclarationTypes.Const;
 
         if (tryingToResetConst) {
@@ -15,9 +19,8 @@ export class Variable {
         }
 
         this.dirty = true;
-        this.value = value;
+        this._value = value;
     }
-
 }
 
 export class ExecutionContext {
@@ -56,7 +59,7 @@ export class ExecutionContext {
         }
 
         if (this.isInCurrentScope(key)) {
-            this.variables[key].setValue(value);
+            this.variables[key].value = value;
         }
 
         this.parentExecutionContext?.setVariable(key, value);

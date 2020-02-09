@@ -106,15 +106,6 @@ test('Should throw undeclared variable error', () => {
     expect(() => evaluate(<AstNode> node, new ScopeManager())).toThrowError(Error);
 });
 
-test('Should throw error when redeclaring a variable', () => {
-    const node = parse(tokenize('var a = 0;')).body[0];
-
-    const scopeManager = new ScopeManager();
-    evaluate(<AstNode> node, scopeManager);
-
-    expect(() => evaluate(<AstNode> node, scopeManager)).toThrowError(Error);
-});
-
 test('Should return pi from scope', () => {
     const node = parse(tokenize('PI')).body[0];
 

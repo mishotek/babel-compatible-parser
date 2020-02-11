@@ -12,6 +12,7 @@ export enum AstNodeType {
     VariableDeclaration = 'VariableDeclaration',
     VariableDeclarator = 'VariableDeclarator',
     AssignmentExpression = 'AssignmentExpression',
+    BlockStatement = 'BlockStatement',
 }
 
 export interface OfAstNodeType {
@@ -99,6 +100,13 @@ export class AssignmentExpression implements OfAstNodeType {
     constructor(public start: number, public end: number, public left: AstNode, public operator: Operators, public right: AstNode) { }
 }
 
+export class BlockStatement implements OfAstNodeType {
+
+    public readonly type = AstNodeType.BlockStatement;
+
+    constructor(public start: number, public end: number, public body: Array<AstNode>) { }
+}
+
 export type AstNode = EmptyNode |
     VariableDeclaration |
     VariableDeclarator |
@@ -108,4 +116,5 @@ export type AstNode = EmptyNode |
     Literal |
     Identifier |
     UnaryExpression |
-    AssignmentExpression;
+    AssignmentExpression |
+    BlockStatement;

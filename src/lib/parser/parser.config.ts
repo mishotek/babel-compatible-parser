@@ -5,6 +5,7 @@ import {parenthesisParser, parenthesisPredicate} from "./parser-functions/parent
 import {variableDeclarationParser, variableDeclarationPredicate} from "./parser-functions/variable-declaration.parser";
 import {unaryExpressionParser, unaryExpressionPredicate} from "./parser-functions/unary-expression.parser";
 import {identifierParser, identifierPredicate} from "./parser-functions/identifier.parser";
+import {blockStatementParser, blockStatementPredicate} from "./parser-functions/block-statement.parser";
 
 export const parserConfig: ParserConfig[] = [
     {
@@ -30,5 +31,9 @@ export const parserConfig: ParserConfig[] = [
     {
         predicateFn: identifierPredicate,
         parserFn: identifierParser
+    },
+    {
+        predicateFn: blockStatementPredicate,
+        parserFn: blockStatementParser
     },
 ];

@@ -1120,3 +1120,49 @@ test('Should parse value assignment', () => {
 
     expect(parse(tokens)).toEqual(ast);
 });
+
+test('Should parse block statement', () => {
+    const tokens: Token[] = tokenize('{ 2 + 2 }');
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 9,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "BlockStatement",
+                "start": 0,
+                "end": 9,
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "start": 2,
+                        "end": 7,
+                        "expression": {
+                            "type": "BinaryExpression",
+                            "start": 2,
+                            "end": 7,
+                            "left": {
+                                "type": "Literal",
+                                "start": 2,
+                                "end": 3,
+                                "value": 2,
+                                "raw": "2"
+                            },
+                            "operator": "+",
+                            "right": {
+                                "type": "Literal",
+                                "start": 6,
+                                "end": 7,
+                                "value": 2,
+                                "raw": "2"
+                            }
+                        }
+                    }
+                ]
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});

@@ -27,8 +27,8 @@ export const tillTheEndOfStatement = tokensTill(';');
 
 export const afterTheEndOfStatement  = fromToken(';');
 
-export const tokensInParenthesis: (tokens: Token[]) => Token[] = (tokens: Token[]) => {
-    if (tokens.length == 0 || tokens[0].value != '(') {
+export const insideOf = (opening: string, closing: string) => (tokens: Token[]) => {
+    if (tokens.length == 0 || tokens[0].value != opening) {
         return [];
     }
 
@@ -38,9 +38,9 @@ export const tokensInParenthesis: (tokens: Token[]) => Token[] = (tokens: Token[
     for (let i = 1; i < tokens.length; i++) {
         const token = tokens[i];
 
-        if (token.type === TokenType.Parenthesis && token.value === '(') {
+        if (token.value === opening) {
             parenthesisCounter++;
-        } else if (token.type === TokenType.Parenthesis && token.value === ')') {
+        } else if (token.value === closing) {
             parenthesisCounter--;
         }
 
@@ -53,3 +53,8 @@ export const tokensInParenthesis: (tokens: Token[]) => Token[] = (tokens: Token[
 
     throw new SyntaxError(`Not enough closing parenthesis starting at ${tokens[0].start}`);
 };
+
+export const tokensInParenthesis: (tokens: Token[]) => Token[] = insideOf('(', ')');
+
+export const tokensInCurlyBraces: (tokens: Token[]) => Token[] = insideOf('{', '}');
+

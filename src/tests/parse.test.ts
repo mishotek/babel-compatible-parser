@@ -1166,3 +1166,208 @@ test('Should parse block statement', () => {
 
     expect(parse(tokens)).toEqual(ast);
 });
+
+test('Should parse simple if', () => {
+    const tokens: Token[] = tokenize('if (myVar) { 1 + 2; }');
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 21,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "IfStatement",
+                "start": 0,
+                "end": 21,
+                "test": {
+                    "type": "Identifier",
+                    "start": 4,
+                    "end": 9,
+                    "name": "myVar"
+                },
+                "consequent": {
+                    "type": "BlockStatement",
+                    "start": 11,
+                    "end": 21,
+                    "body": [
+                        {
+                            "type": "ExpressionStatement",
+                            "start": 13,
+                            "end": 19,
+                            "expression": {
+                                "type": "BinaryExpression",
+                                "start": 13,
+                                "end": 18,
+                                "left": {
+                                    "type": "Literal",
+                                    "start": 13,
+                                    "end": 14,
+                                    "value": 1,
+                                    "raw": "1"
+                                },
+                                "operator": "+",
+                                "right": {
+                                    "type": "Literal",
+                                    "start": 17,
+                                    "end": 18,
+                                    "value": 2,
+                                    "raw": "2"
+                                }
+                            }
+                        }
+                    ],
+                },
+                "alternate": {
+                    "end": NaN,
+                    "start": NaN,
+                    "type": "EmptyNode"
+                }
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
+test('Should parse if else', () => {
+    const tokens: Token[] = tokenize('if (myVar) { "hi" } else { 2 }');
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 30,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "IfStatement",
+                "start": 0,
+                "end": 30,
+                "test": {
+                    "type": "Identifier",
+                    "start": 4,
+                    "end": 9,
+                    "name": "myVar"
+                },
+                "consequent": {
+                    "type": "BlockStatement",
+                    "start": 11,
+                    "end": 19,
+                    "body": [
+                        {
+                            "type": "ExpressionStatement",
+                            "start": 13,
+                            "end": 17,
+                            "expression": {
+                                "type": "Literal",
+                                "start": 13,
+                                "end": 17,
+                                "value": "hi",
+                                "raw": "'hi'"
+                            }
+                        }
+                    ],
+                },
+                "alternate": {
+                    "type": "BlockStatement",
+                    "start": 25,
+                    "end": 30,
+                    "body": [
+                        {
+                            "type": "ExpressionStatement",
+                            "start": 27,
+                            "end": 28,
+                            "expression": {
+                                "type": "Literal",
+                                "start": 27,
+                                "end": 28,
+                                "value": 2,
+                                "raw": "2"
+                            }
+                        }
+                    ],
+                }
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});
+
+test('Should parse if else if', () => {
+    const tokens: Token[] = tokenize('if (myVar) { "hi" } else if (1) { 2 }');
+    const ast = {
+        "type": "Program",
+        "start": 0,
+        "end": 37,
+        "sourceType": "module",
+        "body": [
+            {
+                "type": "IfStatement",
+                "start": 0,
+                "end": 37,
+                "test": {
+                    "type": "Identifier",
+                    "start": 4,
+                    "end": 9,
+                    "name": "myVar"
+                },
+                "consequent": {
+                    "type": "BlockStatement",
+                    "start": 11,
+                    "end": 19,
+                    "body": [
+                        {
+                            "type": "ExpressionStatement",
+                            "start": 13,
+                            "end": 17,
+                            "expression": {
+                                "type": "Literal",
+                                "start": 13,
+                                "end": 17,
+                                "value": "hi",
+                                "raw": "'hi'"
+                            }
+                        }
+                    ],
+                },
+                "alternate": {
+                    "type": "IfStatement",
+                    "start": 25,
+                    "end": 37,
+                    "test": {
+                        "type": "Literal",
+                        "start": 29,
+                        "end": 30,
+                        "value": 1,
+                        "raw": "1"
+                    },
+                    "consequent": {
+                        "type": "BlockStatement",
+                        "start": 32,
+                        "end": 37,
+                        "body": [
+                            {
+                                "type": "ExpressionStatement",
+                                "start": 34,
+                                "end": 35,
+                                "expression": {
+                                    "type": "Literal",
+                                    "start": 34,
+                                    "end": 35,
+                                    "value": 2,
+                                    "raw": "2"
+                                }
+                            }
+                        ],
+                    },
+                    "alternate": {
+                        "end": NaN,
+                        "start": NaN,
+                        "type": "EmptyNode"
+                    }
+                }
+            }
+        ],
+    };
+
+    expect(parse(tokens)).toEqual(ast);
+});

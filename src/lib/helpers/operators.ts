@@ -10,11 +10,27 @@ export class Operators {
     public static readonly Subtract = '-';
     public static readonly Multiply = '*';
     public static readonly Divide = '/';
+    public static readonly IF = 'if';
+    public static readonly ELSE = 'else';
 }
 
 // Operators should be ordered by their length (longest first)
 export const SYMBOL_OPERATORS = ['=>', '=', '>', '<', '+', '-', '*', '/'];
-export const OPERATORS = ['const', 'var', '=>', '=', '>', '<', '+', '-', '*', '/', ';'];
+export const OPERATORS = [
+    'const',
+    'else',
+    'var',
+    'if',
+    '=>',
+    '=',
+    '>',
+    '<',
+    '+',
+    '-',
+    '*',
+    '/',
+    ';'
+];
 
 export const BinaryExpressions: Operators[] = [
     Operators.Add,

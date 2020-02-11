@@ -6,6 +6,7 @@ import {variableDeclarationParser, variableDeclarationPredicate} from "./parser-
 import {unaryExpressionParser, unaryExpressionPredicate} from "./parser-functions/unary-expression.parser";
 import {identifierParser, identifierPredicate} from "./parser-functions/identifier.parser";
 import {blockStatementParser, blockStatementPredicate} from "./parser-functions/block-statement.parser";
+import {ifStatementParser, ifStatementPredicate} from "./parser-functions/if-statement.parser";
 
 export const parserConfig: ParserConfig[] = [
     {
@@ -36,4 +37,8 @@ export const parserConfig: ParserConfig[] = [
         predicateFn: blockStatementPredicate,
         parserFn: blockStatementParser
     },
+    {
+        predicateFn: ifStatementPredicate,
+        parserFn: ifStatementParser
+    }
 ];

@@ -13,6 +13,7 @@ export enum AstNodeType {
     VariableDeclarator = 'VariableDeclarator',
     AssignmentExpression = 'AssignmentExpression',
     BlockStatement = 'BlockStatement',
+    IfStatement = 'IfStatement',
 }
 
 export interface OfAstNodeType {
@@ -107,6 +108,13 @@ export class BlockStatement implements OfAstNodeType {
     constructor(public start: number, public end: number, public body: Array<AstNode>) { }
 }
 
+export class IfStatement implements OfAstNodeType {
+
+    public readonly type = AstNodeType.IfStatement;
+
+    constructor(public start: number, public end: number, public test: AstNode, public consequent: AstNode, public alternate: AstNode) { }
+}
+
 export type AstNode = EmptyNode |
     VariableDeclaration |
     VariableDeclarator |
@@ -117,4 +125,5 @@ export type AstNode = EmptyNode |
     Identifier |
     UnaryExpression |
     AssignmentExpression |
-    BlockStatement;
+    BlockStatement |
+    IfStatement;

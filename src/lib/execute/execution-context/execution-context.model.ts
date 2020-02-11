@@ -33,11 +33,10 @@ export class ExecutionContext {
     }
 
     public getVariable(key: string): Variable {
-
         if (this.notDeclared(key)) {
             throw new Error(`${key} is not declared`);
         }
-
+        
         if (this.isInCurrentScope(key)) {
             return this.variables[key];
         }

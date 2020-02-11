@@ -13,7 +13,7 @@ const creation = (nodes: Array<AstNode>, executionContext: ExecutionContext) => 
 };
 
 const execution = (nodes: Array<AstNode>, scopeManager: ScopeManager) => {
-    nodes.forEach(node => evaluate(node, scopeManager));
+    return nodes.map(node => evaluate(node, scopeManager));
 };
 
 const isDeclaration = (node: AstNode) => node.type === AstNodeType.VariableDeclaration;
@@ -25,12 +25,17 @@ const declare = (executionContext: ExecutionContext) => (variableDeclaration: Va
 
 const _execute = (nodes: Array<AstNode>, scopeManager: ScopeManager) => {
     creation(nodes, scopeManager.currentExecutionContext);
-    execution(nodes, scopeManager);
+    return execution(nodes, scopeManager);
 };
 
 export const execute = (ast: AST) => {
     const scopeManager: ScopeManager = new ScopeManager();
 
     _execute(ast.body, scopeManager);
+};
+
+export const executeRepl = (scopeManager: ScopeManager) => (ast: AST) => {
+    const logs = _execute(ast.body, scopeManager);
+    return logs[logs.length - 1];
 };
 

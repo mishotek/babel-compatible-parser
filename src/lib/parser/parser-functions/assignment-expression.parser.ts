@@ -3,7 +3,7 @@ import {Token, TokenType} from "../../tokenizer/types/token.model";
 import {Operators} from "../../helpers/operators";
 import {AssignmentExpression, AstNode} from "../types/ast-nodes.model";
 import {__singleTurnParser} from "../parser";
-import {stripStructuralNodes} from "../helpers";
+import {stripExpressionStatement, stripStructuralNodes} from "../helpers";
 import {AstMetaData} from "../types/ast.model";
 
 export const assignmentExpressionPredicate: PredicateFn = (tokens: Token[]) => {
@@ -14,8 +14,8 @@ export const assignmentExpressionPredicate: PredicateFn = (tokens: Token[]) => {
 
 export const assignmentExpressionParser: ParserFnWithLeftNode = (tokens: Token[], leftNode: AstNode) => {
     const [operatorToken, ...other] = tokens;
-    const {node, remainingTokens} = __singleTurnParser(other, true);
-    const rightNode: AstNode = node;
+    const {node, remainingTokens} = __singleTurnParser(other);
+    const rightNode: AstNode = stripExpressionStatement(node);
 
     const assignmentExpression = new AssignmentExpression(leftNode.start, rightNode.end, stripStructuralNodes(leftNode), Operators.Assignment, stripStructuralNodes(rightNode));
 

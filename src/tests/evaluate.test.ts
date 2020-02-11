@@ -3,6 +3,8 @@ import {evaluate} from "../lib/evaluate/evaluate";
 import {parse} from "../lib/parser/parser";
 import {tokenize} from "../lib/tokenizer/tokenizer";
 import {ScopeManager} from "../lib/execute/scope-manager/scope-manager";
+import {executeRepl} from "../lib/execute/execute";
+import {AST} from "../lib/parser/types/ast.model";
 
 test('Should evaluate literal', () => {
     const node = new Literal(0, 1, 1, '1');
@@ -110,4 +112,39 @@ test('Should return pi from scope', () => {
     const node = parse(tokenize('PI')).body[0];
 
     expect(evaluate(<AstNode> node, new ScopeManager())).toBe(Math.PI);
+});
+
+test('Should reassign value to var', () => {
+    const ast: AST = parse(tokenize('var a = 11; a = 12; a;'));
+    const scopeManager = new ScopeManager();
+
+    expect(executeRepl(scopeManager)(ast)).toBe(12);
+});
+
+test('Should not reassign value to const', () => {
+    const node = parse(tokenize('const a = 11; a = 12;')).body[0];
+    const scopeManager = new ScopeManager();
+
+    expect(() => evaluate(<AstNode> node, scopeManager)).toThrowError(Error);
+});
+
+test('Should not assign value to const', () => {
+    const node = parse(tokenize('const a; a = 12;')).body[0];
+    const scopeManager = new ScopeManager();
+
+    expect(() => evaluate(<AstNode> node, scopeManager)).toThrowError(Error);
+});
+
+test('Should reassign computed value to var', () => {
+    const ast: AST = parse(tokenize('var a; a = 12 * 2 + 1; a;'));
+    const scopeManager = new ScopeManager();
+    console.log(ast);
+    expect(executeRepl(scopeManager)(ast)).toBe(25);
+});
+
+test('Should not use invalid nodes as identifiers', () => {
+    const node = parse(tokenize('12 = 13;')).body[0];
+    const scopeManager = new ScopeManager();
+
+    expect(() => evaluate(<AstNode> node, scopeManager)).toThrowError(Error);
 });

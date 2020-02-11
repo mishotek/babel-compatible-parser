@@ -21,6 +21,10 @@ import {
     emptyNodeEvaluatorPredicate,
 } from "./evaluation-functions/empty-node.evaluator";
 import {identifierEvaluatorFn, identifierEvaluatorPredicate} from "./evaluation-functions/identifier.evaluator";
+import {
+    assignmentExpressionEvaluatorFn,
+    assignmentExpressionEvaluatorPredicate
+} from "./evaluation-functions/assignment-expression.evaluator";
 
 export const evaluatorConfig : EvaluatorConfig[] = [
     {
@@ -42,6 +46,10 @@ export const evaluatorConfig : EvaluatorConfig[] = [
     {
         predicateFn: variableDeclarationEvaluatorPredicate,
         evaluatorFn: variableDeclarationEvaluator
+    },
+    {
+        predicateFn: assignmentExpressionEvaluatorPredicate,
+        evaluatorFn: assignmentExpressionEvaluatorFn
     },
     {
         predicateFn: identifierEvaluatorPredicate,

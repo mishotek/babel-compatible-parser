@@ -138,7 +138,6 @@ test('Should not assign value to const', () => {
 test('Should reassign computed value to var', () => {
     const ast: AST = parse(tokenize('var a; a = 12 * 2 + 1; a;'));
     const scopeManager = new ScopeManager();
-    console.log(ast);
     expect(executeRepl(scopeManager)(ast)).toBe(25);
 });
 

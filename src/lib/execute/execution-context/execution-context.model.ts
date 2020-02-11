@@ -59,9 +59,9 @@ export class ExecutionContext {
 
         if (this.isInCurrentScope(key)) {
             this.variables[key].value = value;
+        } else {
+            this.parentExecutionContext?.setVariable(key, value);
         }
-
-        this.parentExecutionContext?.setVariable(key, value);
     }
 
     private notDeclared(key: string): boolean {

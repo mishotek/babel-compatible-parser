@@ -25,6 +25,8 @@ import {
     assignmentExpressionEvaluatorFn,
     assignmentExpressionEvaluatorPredicate
 } from "./evaluation-functions/assignment-expression.evaluator";
+import {ifStatementEvaluatorFn, ifStatementPredicate} from "./evaluation-functions/if-statement.evaluator";
+import {blockStatementEvaluatorFn, blockStatementPredicate} from "./evaluation-functions/block-statement.evaluator";
 
 export const evaluatorConfig : EvaluatorConfig[] = [
     {
@@ -54,6 +56,14 @@ export const evaluatorConfig : EvaluatorConfig[] = [
     {
         predicateFn: identifierEvaluatorPredicate,
         evaluatorFn: identifierEvaluatorFn
+    },
+    {
+        predicateFn: ifStatementPredicate,
+        evaluatorFn: ifStatementEvaluatorFn
+    },
+    {
+        predicateFn: blockStatementPredicate,
+        evaluatorFn: blockStatementEvaluatorFn
     },
     {
         predicateFn: emptyNodeEvaluatorPredicate,

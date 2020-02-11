@@ -39,3 +39,9 @@ export const executeRepl = (scopeManager: ScopeManager) => (ast: AST) => {
     return logs[logs.length - 1];
 };
 
+export const executeInNewScope = (scopeManager: ScopeManager, nodes: Array<AstNode>) => {
+    scopeManager.enter();
+    const logs = _execute(nodes, scopeManager);
+    scopeManager.leave();
+    return logs[logs.length - 1];
+};

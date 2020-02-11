@@ -9,7 +9,6 @@ export const variableDeclarationEvaluatorPredicate: PredicateFn = (node: AstNode
 
 export const variableDeclarationEvaluator: EvaluatorFn = (node: AstNode, scopeManager: ScopeManager) => {
     node = <VariableDeclaration> node;
-    console.log(scopeManager.currentExecutionContext);
     node.declarations.forEach(declaration => {
         const value = evaluate(declaration.init, scopeManager);
         scopeManager.currentExecutionContext.setVariable(declaration.id.name, value);

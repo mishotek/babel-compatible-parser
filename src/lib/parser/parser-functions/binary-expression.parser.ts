@@ -10,10 +10,6 @@ export const binaryExpressionPredicate: PredicateFn = (tokens: Token[]) => {
     return tokens.length >= 2 && tokens[0].type === TokenType.Operator && BinaryExpressions.includes(tokens[0].value);
 };
 
-// export const needsConversionToBinaryExpression = (leftNode: AstNode, unaryExpression: UnaryExpression) => {
-//
-// };
-
 const nodeIsBinaryExpression = (node: AstNode) => node.type === AstNodeType.BinaryExpression;
 
 const newOperatorHasHigherPriority = (operator1: Operators, operator2: Operators) => {

@@ -11,6 +11,7 @@ import {endsWithEndOfStatement} from "../../helpers/ends-with-end-of-statement";
 import {stripParenthesis} from "../helpers";
 import R = require("ramda");
 import {identifierPredicate} from "./identifier.parser";
+import {assignmentExpressionParser, assignmentExpressionPredicate} from "./assignment-expression.parser";
 
 export const expressionStatementPredicate: PredicateFn = R.anyPass([
     binaryExpressionPredicate,
@@ -20,6 +21,10 @@ export const expressionStatementPredicate: PredicateFn = R.anyPass([
 ]);
 
 const oneTurnParsing: (tokens: Token[], recentNode: AstNode) => AstMetaData = (tokens: Token[], recentNode: AstNode) => {
+    if (assignmentExpressionPredicate(tokens) && recentNode.type !== AstNodeType.EmptyNode) {
+        return assignmentExpressionParser(tokens, recentNode);
+    }
+
     if (binaryExpressionPredicate(tokens) && recentNode.type !== AstNodeType.EmptyNode) {
         return binaryExpressionParser(tokens, recentNode);
     }

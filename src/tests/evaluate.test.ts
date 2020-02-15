@@ -147,3 +147,24 @@ test('Should not use invalid nodes as identifiers', () => {
 
     expect(() => evaluate(<AstNode> node, scopeManager)).toThrowError(Error);
 });
+
+test('Variables in block statement should not be accessible from outside', () => {
+    const ast: AST = parse(tokenize('if (1) { const a = 12 } a + 1;'));
+    const scopeManager = new ScopeManager();
+
+    expect(() => executeRepl(scopeManager)(ast)).toThrowError(Error);
+});
+
+test('Variables in block statement should be accessible from inside', () => {
+    const ast: AST = parse(tokenize('if (1) { const a = 12; a + 1; }'));
+    const scopeManager = new ScopeManager();
+
+    expect(executeRepl(scopeManager)(ast)).toBe(13);
+});
+
+test('Should get value from if inside of else', () => {
+    const ast: AST = parse(tokenize('if (0) { 1 } else if (1) { 2 }'));
+    const scopeManager = new ScopeManager();
+
+    expect(executeRepl(scopeManager)(ast)).toBe(2);
+});
